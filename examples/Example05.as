@@ -69,7 +69,7 @@ class StarlingGame extends Sprite {
 		
 		armatures = new Vector.<KnightArmature>;
 		var _knightArmature:KnightArmature;
-		for (var _i:uint = 0; _i < 20; _i++ ) {
+		for (var _i:uint = 0; _i < 200; _i++ ) {
 			_knightArmature = new KnightArmature();
 			addChild(_knightArmature.getContainer() as Sprite);
 			armatures.push(_knightArmature);
