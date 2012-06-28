@@ -31,8 +31,10 @@
 		
 		private function delayEncode(_contour:Contour):void {
 			TexturePacker.getInstance().addTexturesFromContainer(_contour, _contour.getName());
-			StarlingGame.texture = TexturePacker.getInstance().packTextures(256, 2);
+			StarlingGame.texture = TexturePacker.getInstance().packTextures(512, 2);
 			TexturePacker.getInstance().clear();
+			//看看贴图的样子
+			addChild(new Bitmap(StarlingGame.texture.bitmapData)).y = 40;
 			
 			ConnectionData.setData(ConnectionXMLMaker.encode(_contour));
 			_contour.remove();
