@@ -208,7 +208,7 @@ package akdcl.skeleton{
 				if (_prevLabel && _frameLabel.name.indexOf(_prevLabel.name + "_") == 0) {
 					continue;
 				}
-				_labelsFormated.push(_frameLabel);
+				_labelsFormated[_labelsFormated.length] = _frameLabel;
 				_prevLabel = _frameLabel;
 			}
 			return _labelsFormated;

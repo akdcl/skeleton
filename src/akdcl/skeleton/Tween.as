@@ -17,7 +17,7 @@ package akdcl.skeleton{
 		
 		public static function recycle(_tween:Tween):void {
 			_tween.reset();
-			prepared.push(_tween);
+			prepared[prepared.length] = _tween;
 		}
 		
 		/**

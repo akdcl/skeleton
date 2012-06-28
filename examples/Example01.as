@@ -43,15 +43,21 @@ package
 			//添加显示关节
 			armature.addJoint(createJoint(150, -75), "body");
 			
-			armature.addJoint(createJoint(50), "tail", 0, "body", -75, 0, -90);
+			armature.addJoint(createJoint(50), "tail", "body", 0);
+			armature.getBone("tail").setLockPosition( -75, 0, -90);
+			armature.addJoint(createJoint(), "legL1", "body", 1);
+			armature.getBone("legL1").setLockPosition( -75, 0, 60);
+			armature.addJoint(createJoint(), "legL2", "body", 2);
+			armature.getBone("legL2").setLockPosition( -75, 0, 120);
+			armature.addJoint(createJoint(), "legR1", "body", 3);
+			armature.getBone("legR1").setLockPosition(75, 0, 60);
+			armature.addJoint(createJoint(), "legR2", "body", 4);
+			armature.getBone("legR2").setLockPosition(75, 0, 120);
 			
-			armature.addJoint(createJoint(), "legL1", 1, "body", -75, 0, 60);
-			armature.addJoint(createJoint(), "legL2", 2, "body", -75, 0, 120);
-			armature.addJoint(createJoint(), "legR1", 3, "body", 75, 0, 60);
-			armature.addJoint(createJoint(), "legR2", 4, "body", 75, 0, 120);
-			
-			armature.addJoint(createJoint(80), "neck", 5, "body", 75, 0, -60);
-			armature.addJoint(createJoint(50), "head", 5, "neck", 80, 0, 60);
+			armature.addJoint(createJoint(80), "neck", "body", 5);
+			armature.getBone("neck").setLockPosition(75, 0, -60);
+			armature.addJoint(createJoint(50), "head", "neck", 6);
+			armature.getBone("head").setLockPosition(80, 0, 60);
 		}
 		
 		//建立一个关节

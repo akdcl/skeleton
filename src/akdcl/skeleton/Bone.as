@@ -6,6 +6,7 @@ package akdcl.skeleton{
 	 * @author akdcl
 	 */
 	final public class Bone {
+		private static const ANGLE_TO_RADIAN:Number = Math.PI / 180;
 		private static var prepared:Vector.<Bone> = new Vector.<Bone>;
 		public static function create():Bone {
 			if (prepared.length > 0) {
@@ -16,7 +17,7 @@ package akdcl.skeleton{
 		
 		public static function recycle(_bone:Bone):void {
 			_bone.reset();
-			prepared.push(_bone);
+			prepared[prepared.length] = _bone;
 		}
 		
 		public var isRadian:Boolean;
@@ -74,7 +75,6 @@ package akdcl.skeleton{
 		
 		public function reset():void {
 			joint = null;
-			parent = null;
 			name = null;
 			parentX = 0;
 			parentY = 0;
@@ -84,12 +84,15 @@ package akdcl.skeleton{
 			lockX = 0;
 			lockY = 0;
 			lockR = 0;
+			//从parent中删除
+			parent = null;
 		}
 		
 		public function remove():void {
 			joint = null;
-			parent = null;
 			name = null;
+			//从parent中删除
+			parent = null;
 		}
 		
 		internal function getGlobalX():Number {
@@ -105,18 +108,25 @@ package akdcl.skeleton{
 		}
 		
 		/**
-		 * 绑定骨骼到自身坐标系
+		 * 加入字骨骼
 		 * @param _child 要绑定的子骨骼
-		 * @param _x x坐标
-		 * @param _y y坐标
 		 */
-		public function addChild(_child:Bone, _x:Number, _y:Number, _r:Number):Bone {
+		public function addChild(_child:Bone):Bone {
 			//children.push(_child);
-			_child.lockX = _x;
-			_child.lockY = _y;
-			_child.lockR = _r;
 			_child.parent = this;
 			return _child;
+		}
+		
+		/**
+		 * 在parent中的偏移坐标
+		 * @param _x x偏移
+		 * @param _y y偏移
+		 * @param _r rotation偏移
+		 */
+		public function setLockPosition(_x:Number, _y:Number, _r:Number = 0):void {
+			lockX = _x;
+			lockY = _y;
+			lockR = _r;
 		}
 		
 		/**
@@ -131,7 +141,7 @@ package akdcl.skeleton{
 				
 				var _dX:Number = lockX + node.x + tweenNode.x;
 				var _dY:Number = lockY + node.y + tweenNode.y;
-				var _r:Number = Math.atan2(_dY, _dX) + parentR * Math.PI / 180;
+				var _r:Number = Math.atan2(_dY, _dX) + parentR * ANGLE_TO_RADIAN;
 				
 				var _len:Number = Math.sqrt(_dX * _dX + _dY * _dY);
 				parentLocalX = _len * Math.cos(_r);
@@ -142,12 +152,12 @@ package akdcl.skeleton{
 			}
 			
 			if (joint) {
-				joint.x = getGlobalX();
-				joint.y = getGlobalY();
+				joint.x = parentLocalX + parentX;
+				joint.y = parentLocalY + parentY;
 				if (isRadian) {
-					joint.rotation = getGlobalR() * Math.PI / 180;
+					joint.rotation = (node.rotation + tweenNode.rotation + parentR + lockR) * ANGLE_TO_RADIAN;
 				}else {
-					joint.rotation = getGlobalR();
+					joint.rotation = node.rotation + tweenNode.rotation + parentR + lockR;
 				}
 				
 				//scale和alpha只由tweenNode控制

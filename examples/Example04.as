@@ -66,7 +66,8 @@
 					_armature.animation.playTo("attack", 55, 0.2, true, 1);
 					Shadow.drawContainer = this;
 					//为weapon添加例子
-					_armature.addJoint(new ShadowContainer(), "particle", 0, "weapon", 80, 0);
+					_armature.addJoint(new ShadowContainer(), "particle", "weapon", 0);
+					_armature.getBone("particle").setLockPosition(80, 0);
 					break;
 			}
 			return _armature

@@ -52,7 +52,6 @@ package akdcl.skeleton
 				return;
 			}
 			
-			armatureXML.appendChild(_xml);
 			animationDatas[_name] = _aniData = new ArmatureAniData();
 			var _aniName:String;
 			var _boneName:String;
@@ -87,7 +86,7 @@ package akdcl.skeleton
 						_obj = { };
 						_obj.name = String(_nodeXML.attribute(NAME));
 						_obj.totalFrames = int(_nodeXML.attribute(FRAME));
-						_arr.push(_obj);
+						_arr[_arr.length] = _obj;
 						_frame += _obj.totalFrames;
 					}
 					
@@ -99,6 +98,9 @@ package akdcl.skeleton
 					_boneAniData.list = _arr;
 				}
 			}
+			//xml动画数据已经转化为ArmatureAniData，可以移除，只保留骨骼配置数据
+			delete _xml[ANIMATION];
+			armatureXML.appendChild(_xml);
 		}
 		
 		private static function getFrameNodeList(_frameXMLList:XMLList):FrameNodeList {

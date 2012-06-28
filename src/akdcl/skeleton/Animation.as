@@ -35,7 +35,7 @@ package akdcl.skeleton{
 		override public function remove():void {
 			super.remove();
 			for each(var _tween:Tween in tweens) {
-				_tween.remove();
+				Tween.recycle(_tween);
 			}
 			
 			armatureAniData = null;
