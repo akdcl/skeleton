@@ -244,7 +244,7 @@ ptp.playTo = function(to, toFrames, listFrames, isLoop, ease){
 			this.noScaleListFrames = this.tweenList.frame - 1;
 		}
 		this.listFrames = listFrames * this.tweenList.scale;
-		/*if(isLoop && this.tweenList.delay != 0){
+		if(isLoop && this.tweenList.delay != 0){
 			var playedFrames = this.noScaleListFrames * (1 - this.tweenList.delay);
 			var prevFrameID = 0;
 			var toFrameID = 0;
@@ -267,9 +267,9 @@ ptp.playTo = function(to, toFrames, listFrames, isLoop, ease){
 				currentPrecent = this.ease > 0?Math.sin(currentPrecent * HALF_PI):(1 - Math.cos(currentPrecent * HALF_PI));
 			}
 			this.to.tweenTo(currentPrecent);
-		}else {*/
+		}else {
 			this.to.copy(this.tweenList.getFrame(0));
-		//}
+		}
 	}
 	this.node.betweenValue(this.from, this.to);
 }
