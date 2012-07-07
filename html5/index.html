@@ -17,15 +17,17 @@
 	</body>
 	<script type='text/javascript'>
 			var examples=[
-				"Example03.html",
-				"Example04.html",
-				"Example05.html",
-				"Example06.html",
-				"Example07.html",
-				"Example08.html"
+				"example03.html",
+				"example04.html",
+				"example05.html",
+				"example06.html",
+				"example07.html",
+				"example08.html"
 			];
+			
 			var exID=0;
 			var exHref=window.location.href.split("#")[1];
+			
 			if(exHref){
 				var arr= exHref.split("&");
 				var obj={};
@@ -38,12 +40,10 @@
 					exID=obj.e;
 				}
 			}
+			
 			var iframe=document.getElementById("example");
 			addEX();
-			function addEX(){
-				window.location.href=window.location.href.split("#")[0]+"#e="+exID;
-				iframe.src = examples[exID];
-			}
+			
 			function prevEx(){
 				exID--;
 				if(exID<0){
@@ -55,6 +55,11 @@
 				exID++;
 				exID%=examples.length;
 				addEX();
+			}
+			
+			function addEX(){
+				window.location.href=window.location.href.split("#")[0]+"#e="+exID;
+				iframe.src = examples[exID];
 			}
 	</script>
 </html>
