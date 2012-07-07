@@ -5,15 +5,15 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<style type="text/css" media="screen">
 		html, body { background-color: #666666;}
-		body { margin:0; padding:0; overflow:hidden; }
+		body { margin:0; padding:0;}
 		</style>
 	</head>
 	<body onLoad="init();">
+		<input type='button' value='上一个例子' onclick='prevEx();'>
+		<input type='button' value='下一个例子' onclick='nextEx();'>
 		<div>
 			<iframe id="example" width="800" height="800" src="example06.html"></iframe>
 		</div>
-		<input type='button' value='上一个例子' onclick='prevEx();'>
-		<input type='button' value='下一个例子' onclick='nextEx();'>
 	</body>
 	<script type='text/javascript'>
 			var examples=[
