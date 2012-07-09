@@ -7,37 +7,117 @@ package akdcl.skeleton
 	 * @author Akdcl
 	 */
 	final public class ConnectionData {
-		internal static const BONE:String = "bone";
-		internal static const ANIMATION:String = "animation";
 		
-		internal static const NAME:String = "name";
-		internal static const PARENT:String = "parent";
-		internal static const ROTATION:String = "rotation";
-		internal static const OFF_R:String = "offR";
-		internal static const X:String = "x";
-		internal static const Y:String = "y";
-		internal static const Z:String = "z";
-		internal static const SCALE_X:String = "scaleX";
-		internal static const SCALE_Y:String = "scaleY";
-		internal static const ALPHA:String = "alpha";
-		internal static const DELAY:String = "delay";
-		internal static const SCALE:String = "scale";
-		internal static const FRAME:String = "frame";
-		internal static const EVENT_FRAME:String = "eventFrame";
+		/**
+		 * @private
+		 */
+		private static const BONE:String = "bone";
 		
+		/**
+		 * @private
+		 */
+		private static const ANIMATION:String = "animation";
+		
+		/**
+		 * @private
+		 */
+		private static const NAME:String = "name";
+		
+		/**
+		 * @private
+		 */
+		private static const PARENT:String = "parent";
+		
+		/**
+		 * @private
+		 */
+		private static const ROTATION:String = "rotation";
+		
+		/**
+		 * @private
+		 */
+		private static const OFF_R:String = "offR";
+		
+		/**
+		 * @private
+		 */
+		private static const X:String = "x";
+		
+		/**
+		 * @private
+		 */
+		private static const Y:String = "y";
+		
+		/**
+		 * @private
+		 */
+		private static const Z:String = "z";
+		
+		/**
+		 * @private
+		 */
+		private static const SCALE_X:String = "scaleX";
+		
+		/**
+		 * @private
+		 */
+		private static const SCALE_Y:String = "scaleY";
+		
+		/**
+		 * @private
+		 */
+		private static const ALPHA:String = "alpha";
+		
+		/**
+		 * @private
+		 */
+		private static const DELAY:String = "delay";
+		
+		/**
+		 * @private
+		 */
+		private static const SCALE:String = "scale";
+		
+		/**
+		 * @private
+		 */
+		private static const FRAME:String = "frame";
+		
+		/**
+		 * @private
+		 */
+		private static const EVENT_FRAME:String = "eventFrame";
+		
+		/**
+		 * 存储骨架数据 XMLList
+		 * @private
+		 */
 		private static var armarureDatas:Object = { };
+		
+		/**
+		 * 存储骨架动画数据 ArmatureAniData
+		 * @private
+		 */
 		private static var animationDatas:Object = { };
 		
-		public static function getAnimationData(_id:String):ArmatureAniData {
-			return animationDatas[_id];
-		}
-		
+		/**
+		 * @param _id
+		 * @return 返回骨架数据
+		 */
 		public static function getArmatureData(_id:String):XMLList {
 			return armarureDatas[_id];
 		}
 		
 		/**
-		 * 将XML数据转换成内置数据
+		 * @param _id
+		 * @return 返回骨架动画数据
+		 */
+		public static function getAnimationData(_id:String):ArmatureAniData {
+			return animationDatas[_id];
+		}
+		
+		/**
+		 * 将XML数据转换成内置数据 ArmatureAniData 等
 		 * @param _xml XML数据
 		 */
 		public static function addData(_xml:XML):void {
@@ -87,6 +167,9 @@ package akdcl.skeleton
 			delete _xml[BONE];
 		}
 		
+		/**
+		 * @private
+		 */
 		private static function getFrameNodeList(_frameXMLList:XMLList):FrameNodeList {
 			var _nodeList:FrameNodeList = new FrameNodeList();
 			_nodeList.scale = Number(_frameXMLList[0].attribute(SCALE)) || _nodeList.scale;
@@ -98,6 +181,9 @@ package akdcl.skeleton
 			return _nodeList;
 		}
 		
+		/**
+		 * @private
+		 */
 		private static function getFrameNode(_nodeXML:XML):FrameNode {
 			var _rotation:Number = Number(_nodeXML.attribute(ROTATION));
 			//_rotation = _rotation * Math.PI / 180;

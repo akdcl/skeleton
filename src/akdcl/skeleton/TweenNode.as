@@ -1,28 +1,86 @@
 package akdcl.skeleton
 {
 	/**
-	 * ...
+	 * 补间控制点
 	 * @author Akdcl
 	 */
 	final public class TweenNode extends FrameNode {
+		
+		/**
+		 * @private
+		 */
 		private var sR:Number;
+		
+		/**
+		 * @private
+		 */
 		private var sX:Number;
+		
+		/**
+		 * @private
+		 */
 		private var sY:Number;
+		
+		/**
+		 * @private
+		 */
 		private var sSX:Number;
+		
+		/**
+		 * @private
+		 */
 		private var sSY:Number;
+		
+		/**
+		 * @private
+		 */
 		private var sA:Number;
 		
+		/**
+		 * @private
+		 */
 		private var dR:Number;
+		
+		/**
+		 * @private
+		 */
 		private var dX:Number;
+		
+		/**
+		 * @private
+		 */
 		private var dY:Number;
+		
+		/**
+		 * @private
+		 */
 		private var dSX:Number;
+		
+		/**
+		 * @private
+		 */
 		private var dSY:Number;
+		
+		/**
+		 * @private
+		 */
 		private var dA:Number;
 		
+		/**
+		 * 构造函数
+		 * @param _x
+		 * @param _x
+		 * @param _rotation
+		 */
 		public function TweenNode(_x:Number = 0, _y:Number = 0, _rotation:Number = 0) {
 			super(_x, _y, _rotation);
 		}
 		
+		/**
+		 * 让 TweenNode 从两个关键点中取值
+		 * @param _from
+		 * @param _to
+		 */
 		public function betweenValue(_from:FrameNode, _to:FrameNode):void {
 			sR = _from.rotation;
 			sX = _from.x;
@@ -44,6 +102,10 @@ package akdcl.skeleton
 			dA = _to.alpha - sA;
 		}
 		
+		/**
+		 * 让 TweenNode 从两个关键点中取值
+		 * @param _k 0~1 的值，当此值为 0，TweenNode 取 from 点值，当此值为 1，TweenNode 取 to 点值
+		 */
 		public function tweenTo(_k:Number):void {
 			rotation = sR + dR * _k;
 			x = sX + dX * _k;

@@ -2,15 +2,42 @@ package akdcl.skeleton
 {
 	
 	/**
-	 * ...
+	 * 关键帧数据
 	 * @author Akdcl
 	 */
-	public class FrameNode extends Node{
+	public class FrameNode extends Node {
+		
+		/**
+		 * @private
+		 */
 		internal var scaleX:Number;
+		
+		/**
+		 * @private
+		 */
 		internal var scaleY:Number;
+		
+		/**
+		 * @private
+		 */
 		internal var alpha:Number;
+		
+		/**
+		 * @private
+		 */
 		internal var offR:Number;
+		
+		/**
+		 * @private
+		 */
 		internal var frame:uint;
+		
+		/**
+		 * 构造函数
+		 * @param _x
+		 * @param _y
+		 * @param _rotation
+		 */
 		public function FrameNode(_x:Number = 0, _y:Number = 0, _rotation:Number = 0) {
 			super(_x, _y, _rotation);
 			

@@ -9,11 +9,22 @@ package akdcl.skeleton {
 	import akdcl.skeleton.export.TextureMix;
 	
 	/**
-	 * 骨架
+	 * Starling 骨架生成工具
 	 * @author Akdcl
 	 */
 	final public class StarlingCommand {
+		
+		/**
+		 * @private
+		 */
 		private static var textureMix:TextureMix;
+		
+		/**
+		 * 骨架生成方法
+		 * @param _name 骨架名
+		 * @param _animationName 动画名
+		 * @param _textureMix 贴图数据
+		 */
 		public static function createArmature(_name:String, _animationName:String, _textureMix:TextureMix):Armature {
 			textureMix = _textureMix;
 			if (!textureMix.texture) {
@@ -24,6 +35,10 @@ package akdcl.skeleton {
 			return _armature;
 		}
 		
+		/**
+		 * 骨骼生成接口
+		 * @private
+		 */
 		static private function boneFactory(_armarureName:String, _boneName:String):Object {
 			if (textureMix) {
 				return getTextureDisplay(textureMix, _armarureName + "_" + _boneName);
@@ -31,6 +46,12 @@ package akdcl.skeleton {
 			return null;
 		}
 		
+		/**
+		 * 从 TextureMix 获得 Image 的方法
+		 * @param _textureMix 贴图数据
+		 * @param _fullName 贴图全称
+		 * @return 返回 Image 实例
+		 */
 		public static function getTextureDisplay(_textureMix:TextureMix, _fullName:String):Image {
 			var _texture:XML = _textureMix.getTexture(_fullName);
 			if (_texture) {

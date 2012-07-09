@@ -1,13 +1,24 @@
 package akdcl.skeleton{
 	
 	/**
-	 * 骨骼动画，处理关键帧数据并渲染到骨骼
+	 * 骨骼缓动控制，处理关键帧数据并渲染到骨骼
 	 * @author Akdcl
 	 */
 	final public class Tween extends ProcessBase {
+		/**
+		 * @private
+		 */
 		private static const HALF_PI:Number = Math.PI * 0.5;
 		
+		/**
+		 * @private
+		 */
 		private static var prepared:Vector.<Tween> = new Vector.<Tween>;
+		
+		/**
+		 * 创建 Tween 实例，Tween 做为常用的实例，用对象池管理创建回收
+		 * @return 返回 Tween 实例
+		 */
 		public static function create():Tween {
 			if (prepared.length > 0) {
 				return prepared.pop();
@@ -15,34 +26,72 @@ package akdcl.skeleton{
 			return new Tween();
 		}
 		
+		/**
+		 * @private
+		 */
 		private static function recycle(_tween:Tween):void {
 			if (prepared.indexOf(_tween) < 0) {
 				prepared[prepared.length] = _tween;
 			}
 		}
 		
-		private var from:TweenNode;
-		private var to:TweenNode;
+		/**
+		 * Bone.tweenNode 的引用
+		 * @private
+		 */
 		private var node:TweenNode;
+		
+		/**
+		 * @private
+		 */
+		private var from:TweenNode;
+		
+		/**
+		 * @private
+		 */
+		private var to:TweenNode;
+		
+		/**
+		 * @private
+		 */
 		private var tweenList:FrameNodeList;
 		
+		/**
+		 * 构造函数
+		 */
 		public function Tween() {
 			super();
 			from = new TweenNode();
 			to = new TweenNode();
 		}
 		
+		/**
+		 * 删除，回收
+		 */
 		override public function remove():void {
+			stop();
 			super.remove();
 			node = null;
 			tweenList = null;
 			recycle(this);
 		}
 		
+		/**
+		 * 设置 node
+		 * @private
+		 */
 		internal function setNode(_node:TweenNode):void {
 			node = _node;
 		}
 		
+		/**
+		 * 播放补间动画
+		 * @param _to FrameNodeList 实例
+		 * @param _toFrames 过渡到 FrameNodeList 需要花费的帧
+		 * @param _listFrames FrameNodeList 播放持续的帧
+		 * @param _loop 是否循环
+		 * @param _ease FrameNodeList 各个关键点的缓动方式，-1:SineOut，0:Line，1:SineIn，2:SineInOut
+		 */
 		override public function playTo(_to:Object, _toFrames:uint, _listFrames:uint=0, _loop:Boolean = false, _ease:int = 0):void {
 			super.playTo(_to, _toFrames, _listFrames, _loop, _ease);
 			node.rotation %= 360;
@@ -80,7 +129,7 @@ package akdcl.skeleton{
 					
 					to.betweenValue(tweenList.getFrame(_prevFrameID), tweenList.getFrame(_toFrameID));
 			
-					var _currentPrecent = 1 - (_listEndFrame - _playedFrames) / _betweenFrame;
+					var _currentPrecent:Number = 1 - (_listEndFrame - _playedFrames) / _betweenFrame;
 					if (ease == 2) {
 						_currentPrecent = 0.5 * (1 - Math.cos(_currentPrecent * Math.PI ));
 					}else if (ease != 0) {
@@ -94,6 +143,10 @@ package akdcl.skeleton{
 			node.betweenValue(from, to);
 		}
 		
+		
+		/**
+		 * 设置 node
+		 */
 		override protected function updateHandler():void {
 			if (currentPrecent >= 1) {
 				switch(loop) {
@@ -143,6 +196,9 @@ package akdcl.skeleton{
 			node.tweenTo(currentPrecent);
 		}
 		
+		/**
+		 * @private
+		 */
 		private function updateCurrentPrecent():void {
 			var _playedFrames:Number = noScaleListFrames * currentPrecent;
 			

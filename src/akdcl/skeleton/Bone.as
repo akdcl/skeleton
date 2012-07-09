@@ -6,16 +6,32 @@ package akdcl.skeleton{
 	 * @author akdcl
 	 */
 	final public class Bone {
+		
+		/**
+		 * @private
+		 */
 		private static const ANGLE_TO_RADIAN:Number = Math.PI / 180;
 		
+		/**
+		 * @private
+		 */
 		private static var prepared:Vector.<Bone> = new Vector.<Bone>;
-		public static function create():Bone {
+		
+		/**
+		 * 创建Bone实例，Bone 做为常用的实例，用对象池管理创建回收
+		 * @param _isRadian 骨骼旋转角度是否采用弧度制，比如 Starling 使用的是弧度制
+		 * @return 返回 Bone 实例
+		 */
+		public static function create(_isRadian:Boolean = false):Bone {
 			if (prepared.length > 0) {
 				return prepared.pop();
 			}
-			return new Bone();
+			return new Bone(_isRadian);
 		}
 		
+		/**
+		 * @private
+		 */
 		private static function recycle(_bone:Bone):void {
 			if (Bone.prepared.indexOf(_bone) < 0) {
 				return;
@@ -23,29 +39,83 @@ package akdcl.skeleton{
 			Bone.prepared.push(_bone);
 		}
 		
-		public var isRadian:Boolean;
+		/**
+		 * 骨骼名称 Armature 通过骨骼名索引 Bone。Animation 通过骨骼名建立 Bone 与 Tween 的关联
+		 */
 		public var name:String;
+		
+		/**
+		 * 骨骼绑定的显示对象，并不是必须的，可以不绑定显示对象
+		 */
 		public var display:Object;
 		
-		
+		/**
+		 * 骨骼受控制的关键点
+		 */
 		public var node:Node;
 		
+		/**
+		 * 受 Tween 控制的关键点，骨骼由 Tween 和自身 node 的合值控制
+		 * @private
+		 */
 		internal var tweenNode:TweenNode;
 		
+		/**
+		 * @private
+		 */
+		private var isRadian:Boolean;
+		
+		/**
+		 * @private
+		 */
 		private var parent:Bone;
 		
+		/**
+		 * @private
+		 */
 		private var transformX:Number;
+		
+		/**
+		 * @private
+		 */
 		private var transformY:Number;
 		
+		/**
+		 * @private
+		 */
 		private var lockX:Number;
+		
+		/**
+		 * @private
+		 */
 		private var lockY:Number;
+		
+		/**
+		 * @private
+		 */
 		private var lockR:Number;
 		
+		/**
+		 * @private
+		 */
 		private var parentX:Number;
+		
+		/**
+		 * @private
+		 */
 		private var parentY:Number;
+		
+		/**
+		 * @private
+		 */
 		private var parentR:Number;
 		
-		public function Bone() {
+		/**
+		 * 构造函数
+		 * @param _isRadian 骨骼旋转角度是否采用弧度制，比如 Starling 使用的是弧度制
+		 */
+		public function Bone(_isRadian:Boolean = false) {
+			isRadian = _isRadian;
 			transformX = 0;
 			transformY = 0;
 			parentX = 0;
@@ -59,6 +129,9 @@ package akdcl.skeleton{
 			tweenNode = new TweenNode();
 		}
 		
+		/**
+		 * 删除，回收
+		 */
 		public function remove():void {
 			display = null;
 			name = null;
@@ -74,16 +147,25 @@ package akdcl.skeleton{
 			Bone.recycle(this);
 		}
 		
+		/**
+		 * 添加子骨骼
+		 */
 		public function addChild(_child:Bone):void{
 			_child.parent = this;
 		}
 		
+		/**
+		 * 调整在父骨骼中的绑定位置，仅在拥有 parent 时起作用
+		 */
 		public function setLockPosition(_x:Number, _y:Number, _r:Number = 0):void {
 			lockX = _x;
 			lockY = _y;
 			lockR = _r;
 		}
 		
+		/**
+		 * 更新位置
+		 */
 		public function update():void {
 			if (parent) {
 				parentX = parent.getGlobalX();
@@ -105,6 +187,10 @@ package akdcl.skeleton{
 			updateDisplay();
 		}
 		
+		/**
+		 * 更新 display
+		 * @private
+		 */
 		private function updateDisplay():void {
 			if (display) {
 				display.x = transformX + parentX;
@@ -135,14 +221,26 @@ package akdcl.skeleton{
 			}
 		}
 		
+		/**
+		 * 获取在 Armatur.display 中的全局 x 坐标
+		 * @private
+		 */
 		internal function getGlobalX():Number {
 			return transformX + parentX;
 		}
 		
+		/**
+		 * 获取在 Armatur.display 中的全局 y 坐标
+		 * @private
+		 */
 		internal function getGlobalY():Number {
 			return transformY + parentY;
 		}
 		
+		/**
+		 * 获取在 Armatur.display 中的全局 rotation
+		 * @private
+		 */
 		internal function getGlobalR():Number {
 			return node.rotation + tweenNode.rotation + parentR + lockR;
 		}

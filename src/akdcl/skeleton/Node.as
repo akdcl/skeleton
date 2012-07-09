@@ -1,6 +1,6 @@
 package akdcl.skeleton {
 	/**
-	 * ...
+	 * 基本帧数据
 	 * @author Akdcl
 	 */
 	public class Node{
