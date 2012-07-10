@@ -93,7 +93,6 @@
 		}
 	}
 }
-import akdcl.utils.XMLToObject
 
 dynamic class ComplexString {
 	public var value:String;
