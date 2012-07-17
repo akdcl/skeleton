@@ -61,7 +61,6 @@ package akdcl.skeleton{
 		 * 删除，回收
 		 */
 		override public function remove():void {
-			stop();
 			super.remove();
 			for each(var _tween:Tween in tweens) {
 				_tween.remove();
@@ -71,6 +70,7 @@ package akdcl.skeleton{
 			boneAniData = null;
 			aniIDNow = null;
 			tweens = null;
+			onAnimation = null;
 		}
 		
 		override public function pause():void {

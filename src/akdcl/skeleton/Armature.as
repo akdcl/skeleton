@@ -134,7 +134,8 @@ package akdcl.skeleton {
 		 */
 		public function removeBone(_name:String):void {
 			var _bone:Bone = boneDic[_name];
-			if(_bone){
+			if (_bone) {
+				boneList.splice(boneList.indexOf(_bone), 1);
 				if(_bone.display && display.contains(_bone.display)){
 					display.removeChild(_bone.display);
 				}

@@ -167,6 +167,15 @@ package akdcl.skeleton
 			delete _xml[BONE];
 		}
 		
+		public static function removeData(_name:String):void {
+			var _animation:ArmatureAniData = animationDatas[_name];
+			if (_animation) {
+				_animation.remove();
+			}
+			delete animationDatas[_name]
+			delete armarureDatas[_name];
+		}
+		
 		/**
 		 * @private
 		 */
