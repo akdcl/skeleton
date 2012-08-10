@@ -1,0 +1,336 @@
+<root>
+  <skeleton name="enemy0">
+    <bone name="body" x="0" y="0" z="4"/>
+    <bone name="armR" parent="body" x="-5.3" y="-5.25" z="6"/>
+    <bone name="head" parent="body" x="0" y="-5" z="5"/>
+    <bone name="legR" parent="body" x="-5" y="8" z="0"/>
+    <bone name="legL" parent="body" x="5" y="8" z="1"/>
+    <bone name="armL" parent="body" x="5" y="-4" z="2"/>
+    <bone name="weapon" parent="armL" x="13.1" y="-1.9" z="3"/>
+    <animation name="stand" frame="2">
+      <legR x="0" y="0" rotation="0"/>
+      <legR x="0" y="1" rotation="0"/>
+      <legL x="0" y="0" rotation="0"/>
+      <legL x="0" y="1" rotation="0"/>
+      <armL x="0" y="0" rotation="60"/>
+      <armL x="0" y="1" rotation="30"/>
+      <weapon x="0" y="0" rotation="-105"/>
+      <weapon x="0" y="0" rotation="-81.27"/>
+      <body x="0" y="0" rotation="0"/>
+      <body x="0" y="-1" rotation="0"/>
+      <head x="0" y="0" rotation="4.2"/>
+      <head x="0" y="-1" rotation="-3.69"/>
+      <armR x="0" y="0" rotation="114.54"/>
+      <armR x="0" y="-1" rotation="138.75"/>
+    </animation>
+    <animation name="run" frame="2">
+      <legR x="0" y="0" rotation="60"/>
+      <legR x="9" y="0" rotation="-81.73"/>
+      <legL x="0" y="0" rotation="-72.19"/>
+      <legL x="-11" y="0" rotation="62.47"/>
+      <armL x="-3" y="-1" rotation="105"/>
+      <armL x="1" y="-1" rotation="40.02"/>
+      <weapon x="0" y="0" rotation="-124.56"/>
+      <weapon x="0" y="0" rotation="-96.51"/>
+      <body x="0" y="-2" rotation="0" scale="0.5"/>
+      <body x="0" y="0" rotation="0"/>
+      <head x="0" y="-1" rotation="-10.2" scale="0.5" delay="0.9"/>
+      <head x="0" y="0" rotation="8.24"/>
+      <armR x="4" y="0" rotation="12.98"/>
+      <armR x="0" y="0" rotation="149.27"/>
+    </animation>
+  </skeleton>
+  <skeleton name="enemy1">
+    <bone name="body" x="0" y="0" z="2"/>
+    <bone name="legRF" parent="body" x="12" y="8" z="6"/>
+    <bone name="legRB" parent="body" x="-22" y="8" z="5"/>
+    <bone name="head" parent="body" x="15.55" y="-19.7" z="3"/>
+    <bone name="chin" parent="head" x="12.65" y="-1.5" z="4"/>
+    <bone name="legLF" parent="body" x="18" y="8" z="0"/>
+    <bone name="legLB" parent="body" x="-16" y="8" z="1"/>
+    <animation name="stand" frame="2">
+      <legLF x="0" y="0" rotation="2.22"/>
+      <legLF x="0" y="0" rotation="0"/>
+      <legLB x="0" y="0" rotation="2.22"/>
+      <legLB x="0" y="0" rotation="0"/>
+      <body x="0" y="0" rotation="-2.22"/>
+      <body x="0" y="0" rotation="0"/>
+      <head x="0" y="0" rotation="7.96"/>
+      <head x="0" y="0" rotation="0"/>
+      <chin x="0" y="0" rotation="-1.29"/>
+      <chin x="0" y="0" rotation="-15"/>
+      <legRB x="0" y="0" rotation="-3.99"/>
+      <legRB x="0" y="0" rotation="0"/>
+      <legRF x="0" y="0" rotation="9.92"/>
+      <legRF x="0" y="0" rotation="0"/>
+    </animation>
+    <animation name="run" frame="2">
+      <legLF x="0" y="0" rotation="-83.53"/>
+      <legLF x="-2.27" y="0" rotation="44.55"/>
+      <legLB x="0" y="0" rotation="66.47"/>
+      <legLB x="3.31" y="-1.38" rotation="-60.45"/>
+      <body x="0" y="-3" rotation="-6.47" delay="-0.1"/>
+      <body x="0" y="0" rotation="15.45"/>
+      <head x="0" y="0" rotation="0" delay="0.3"/>
+      <head x="0" y="0" rotation="-9.89"/>
+      <chin x="0" y="0" rotation="20.98" delay="0.1"/>
+      <chin x="0" y="0" rotation="-5.56"/>
+      <legRB x="0" y="-1.53" rotation="66.47" delay="0.1"/>
+      <legRB x="2.56" y="0" rotation="-60.45"/>
+      <legRF x="0" y="0" rotation="-83.53" delay="0.1"/>
+      <legRF x="0" y="1.17" rotation="44.55"/>
+    </animation>
+  </skeleton>
+  <skeleton name="enemy4">
+    <bone name="body" x="0" y="0" z="1"/>
+    <bone name="tail_0" parent="body" x="-9" y="-2" z="5"/>
+    <bone name="tail_1" parent="tail_0" x="-6.25" y="0" z="6"/>
+    <bone name="tail_2" parent="tail_1" x="-6.6" y="0" z="7"/>
+    <bone name="tail_3" parent="tail_2" x="-6.55" y="0" z="8"/>
+    <bone name="tail_4" parent="tail_3" x="-6.2" y="0" z="9"/>
+    <bone name="tail_5" parent="tail_4" x="-6.2" y="0" z="10"/>
+    <bone name="tail_6" parent="tail_5" x="-6.2" y="0" z="11"/>
+    <bone name="wing" parent="body" x="6" y="-6" z="4"/>
+    <bone name="head" parent="body" x="14" y="-5" z="3"/>
+    <bone name="armR" parent="body" x="-1" y="2" z="2"/>
+    <bone name="armL" parent="body" x="9.2" y="0.8" z="0"/>
+    <animation name="stand" frame="2">
+      <armL x="0" y="1.54" rotation="-20.31"/>
+      <armL x="-1.63" y="2.2" rotation="-13.25"/>
+      <body x="0" y="0" rotation="-9.69" delay="0.2"/>
+      <body x="0" y="-2" rotation="6.23"/>
+      <armR x="2.3" y="2.28" rotation="-11.26" delay="0.1"/>
+      <armR x="2.43" y="1.87" rotation="1.72"/>
+      <head x="0" y="0" rotation="39.69" delay="0.3"/>
+      <head x="0" y="0" rotation="7.82"/>
+      <wing x="0" y="1.1" rotation="24.47" scaleY="-0.5"/>
+      <wing x="-2.57" y="0" rotation="-17.25" scaleY="0.5"/>
+      <tail_0 x="-1.51" y="-1.82" rotation="39.69" delay="0.1"/>
+      <tail_0 x="-1.27" y="0" rotation="-25.43"/>
+      <tail_1 x="0" y="0" rotation="0" scaleY="0.9"/>
+      <tail_1 x="0" y="0" rotation="-10.8" scaleY="0.9"/>
+      <tail_2 x="0" y="0" rotation="-15" scaleY="0.8"/>
+      <tail_2 x="0" y="0" rotation="2.08" scaleY="0.8"/>
+      <tail_3 x="0" y="0" rotation="-15" scaleY="0.7"/>
+      <tail_3 x="0" y="0" rotation="8.72" scaleY="0.7"/>
+      <tail_4 x="0" y="0" rotation="-15" scaleY="0.6"/>
+      <tail_4 x="0" y="0" rotation="19.2" scaleY="0.6"/>
+      <tail_5 x="0" y="0" rotation="-15" scaleY="0.5"/>
+      <tail_5 x="0" y="0" rotation="19.23" scaleY="0.5"/>
+      <tail_6 x="0" y="0" rotation="0"/>
+      <tail_6 x="0" y="0" rotation="22.47"/>
+    </animation>
+    <animation name="run" frame="2">
+      <armL x="0" y="1.54" rotation="-35.31"/>
+      <armL x="-1.63" y="2.2" rotation="1.75"/>
+      <body x="0" y="0" rotation="-9.69" delay="0.2"/>
+      <body x="0" y="-2" rotation="6.23"/>
+      <armR x="2.3" y="2.28" rotation="-26.26" delay="0.1"/>
+      <armR x="2.43" y="1.87" rotation="1.72"/>
+      <head x="0" y="0" rotation="39.69" delay="0.3"/>
+      <head x="0" y="0" rotation="7.82"/>
+      <wing x="0" y="6.02" rotation="24.51" scaleY="-1"/>
+      <wing x="0" y="0" rotation="-17.3"/>
+      <tail_0 x="-1.51" y="-1.82" rotation="39.69" delay="0.1"/>
+      <tail_0 x="-1.27" y="0" rotation="-25.43"/>
+      <tail_1 x="0" y="0" rotation="0" scaleY="0.9"/>
+      <tail_1 x="0" y="0" rotation="-10.8" scaleY="0.9"/>
+      <tail_2 x="0" y="0" rotation="-15" scaleY="0.8"/>
+      <tail_2 x="0" y="0" rotation="2.08" scaleY="0.8"/>
+      <tail_3 x="0" y="0" rotation="-15" scaleY="0.7"/>
+      <tail_3 x="0" y="0" rotation="8.72" scaleY="0.7"/>
+      <tail_4 x="0" y="0" rotation="-15" scaleY="0.6"/>
+      <tail_4 x="0" y="0" rotation="19.2" scaleY="0.6"/>
+      <tail_5 x="0" y="0" rotation="-15" scaleY="0.5"/>
+      <tail_5 x="0" y="0" rotation="19.23" scaleY="0.5"/>
+      <tail_6 x="0" y="0" rotation="0"/>
+      <tail_6 x="0" y="0" rotation="22.47"/>
+    </animation>
+  </skeleton>
+  <skeleton name="enemy5">
+    <bone name="body" x="0" y="0" z="3"/>
+    <bone name="wing" parent="body" x="0" y="-6" z="2"/>
+    <bone name="head" parent="body" x="23" y="-6" z="1"/>
+    <bone name="chin" parent="head" x="23.05" y="-1.2" z="0"/>
+    <animation name="stand" frame="2">
+      <chin x="0" y="0" rotation="24.99" delay="0.1"/>
+      <chin x="0" y="0" rotation="-2.24"/>
+      <head x="0" y="0" rotation="30" delay="0.3"/>
+      <head x="-2.01" y="0" rotation="-18.21"/>
+      <wing x="1.55" y="0" rotation="29.82" scaleY="-0.5"/>
+      <wing x="0" y="-2.25" rotation="-19.31" scaleY="0.5"/>
+      <body x="0" y="0" rotation="-15" delay="0.2"/>
+      <body x="0" y="0" rotation="15"/>
+    </animation>
+    <animation name="run" frame="2">
+      <chin x="0" y="0" rotation="24.99" delay="0.1"/>
+      <chin x="0" y="0" rotation="-2.24"/>
+      <head x="0" y="0" rotation="30" delay="0.3"/>
+      <head x="-2.01" y="0" rotation="-18.21"/>
+      <wing x="1.55" y="0" rotation="29.78" scaleY="-1"/>
+      <wing x="0" y="-2.25" rotation="-19.49"/>
+      <body x="0" y="0" rotation="-15" delay="0.2"/>
+      <body x="0" y="0" rotation="15"/>
+    </animation>
+  </skeleton>
+  <skeleton name="enemy6">
+    <bone name="body" x="0" y="0" z="3"/>
+    <bone name="tail_0" parent="body" x="-30" y="3" z="4"/>
+    <bone name="tail_1" parent="tail_0" x="-6.6" y="0" z="5"/>
+    <bone name="tail_2" parent="tail_1" x="-6.8" y="0" z="6"/>
+    <bone name="tail_3" parent="tail_2" x="-6.55" y="0" z="7"/>
+    <bone name="tail_4" parent="tail_3" x="-6.7" y="0" z="8"/>
+    <bone name="tail_5" parent="tail_4" x="-6.45" y="0" z="9"/>
+    <bone name="wing" parent="body" x="10" y="-15" z="2"/>
+    <bone name="head" parent="body" x="36" y="-10" z="1"/>
+    <bone name="chin" parent="head" x="5.85" y="1.5" z="0"/>
+    <animation name="stand" frame="2">
+      <chin x="0" y="0" rotation="29.49"/>
+      <chin x="1.11" y="-2.34" rotation="5.47"/>
+      <head x="-2.93" y="-1.1" rotation="23.75" delay="0.3"/>
+      <head x="0" y="0" rotation="-11.2"/>
+      <wing x="2.17" y="1.7" rotation="17.81" scaleY="-0.5"/>
+      <wing x="0" y="7.04" rotation="-16.96" scaleY="0.5"/>
+      <body x="0" y="0" rotation="-8.75" delay="0.2"/>
+      <body x="0" y="0" rotation="5.73"/>
+      <tail_0 x="0" y="0" rotation="-7.99" delay="0.1"/>
+      <tail_0 x="0" y="0" rotation="-9.69"/>
+      <tail_1 x="0" y="0" rotation="1.74"/>
+      <tail_1 x="0" y="0" rotation="-8.53"/>
+      <tail_2 x="0" y="0" rotation="7.29"/>
+      <tail_2 x="0" y="0" rotation="-10.03"/>
+      <tail_3 x="0" y="0" rotation="7.71"/>
+      <tail_3 x="0" y="0" rotation="-16.94"/>
+      <tail_4 x="0" y="0" rotation="11.25"/>
+      <tail_4 x="-1.15" y="0" rotation="-7.06"/>
+      <tail_5 x="0" y="0" rotation="9.18"/>
+      <tail_5 x="0" y="0" rotation="0"/>
+    </animation>
+    <animation name="run" frame="2">
+      <chin x="0" y="0" rotation="29.49"/>
+      <chin x="1.11" y="-2.34" rotation="5.47"/>
+      <head x="-1.71" y="0" rotation="28.21" delay="0.3"/>
+      <head x="0" y="0" rotation="-11.2"/>
+      <wing x="0" y="14.36" rotation="22.23" scaleY="-1"/>
+      <wing x="0" y="7.04" rotation="-16.8"/>
+      <body x="0" y="0" rotation="-13.21" delay="0.2"/>
+      <body x="0" y="0" rotation="5.73"/>
+      <tail_0 x="0" y="0" rotation="-3.53" delay="0.1"/>
+      <tail_0 x="0" y="0" rotation="-9.69"/>
+      <tail_1 x="0" y="0" rotation="1.74"/>
+      <tail_1 x="0" y="0" rotation="-8.53"/>
+      <tail_2 x="0" y="0" rotation="7.29"/>
+      <tail_2 x="0" y="0" rotation="-10.03"/>
+      <tail_3 x="0" y="0" rotation="7.71"/>
+      <tail_3 x="0" y="0" rotation="-16.94"/>
+      <tail_4 x="0" y="0" rotation="11.25"/>
+      <tail_4 x="-1.15" y="0" rotation="-7.06"/>
+      <tail_5 x="0" y="0" rotation="9.18"/>
+      <tail_5 x="0" y="0" rotation="0"/>
+    </animation>
+  </skeleton>
+  <skeleton name="enemy3">
+    <bone name="body" x="0" y="0" z="3"/>
+    <bone name="armR" parent="body" x="14" y="-2" z="9"/>
+    <bone name="armRM" parent="armR" x="26" y="-1" z="10"/>
+    <bone name="handR" parent="armRM" x="36.5" y="0.5" z="11"/>
+    <bone name="legR1" parent="body" x="-1" y="22" z="7"/>
+    <bone name="footR1" parent="legR1" x="-6.25" y="-27" z="8"/>
+    <bone name="legR2" parent="body" x="-28" y="22" z="5"/>
+    <bone name="footR2" parent="legR2" x="-6.25" y="-26" z="6"/>
+    <bone name="head" parent="body" x="0" y="-33" z="4"/>
+    <bone name="armL" parent="body" x="13" y="-8" z="0"/>
+    <bone name="armLM" parent="armL" x="27" y="-1" z="1"/>
+    <bone name="handL" parent="armLM" x="36.5" y="-0.5" z="2"/>
+    <animation name="stand" frame="2">
+      <armL x="0" y="0" rotation="42.76"/>
+      <armL x="0" y="0" rotation="45"/>
+      <armLM x="-2.92" y="0" rotation="-109.28"/>
+      <armLM x="-2.71" y="0" rotation="-120"/>
+      <handL x="-1.83" y="1.25" rotation="122.96"/>
+      <handL x="0" y="1.13" rotation="135"/>
+      <body x="0" y="-2" rotation="0" delay="0.2"/>
+      <body x="0" y="0" rotation="0"/>
+      <head x="0" y="0" rotation="-4.75" delay="0.3"/>
+      <head x="0" y="0" rotation="5.03"/>
+      <legR2 x="0" y="0" rotation="-15" delay="0.1"/>
+      <legR2 x="0" y="0" rotation="0"/>
+      <footR2 x="1.85" y="-1.06" rotation="5.53"/>
+      <footR2 x="0" y="0" rotation="4.45"/>
+      <legR1 x="0" y="0" rotation="-15"/>
+      <legR1 x="0" y="0" rotation="0"/>
+      <footR1 x="3.34" y="-1.73" rotation="6.25"/>
+      <footR1 x="0" y="0" rotation="4.25"/>
+      <armR x="0" y="0" rotation="60" delay="0.1" frame="2"/>
+      <armRM x="-3.08" y="0" rotation="-142.49"/>
+      <armRM x="-1.65" y="1.32" rotation="-144.19"/>
+      <handR x="-1.26" y="0" rotation="127.49"/>
+      <handR x="-1.56" y="0" rotation="119.18"/>
+    </animation>
+    <animation name="run" frame="2">
+      <armL x="0" y="0" rotation="54.22"/>
+      <armL x="0" y="0" rotation="30"/>
+      <armLM x="-3.51" y="0" rotation="-92.27"/>
+      <armLM x="-2.88" y="0" rotation="-129.45"/>
+      <handL x="-1.68" y="0" rotation="54.85"/>
+      <handL x="-1.01" y="2.91" rotation="166.89"/>
+      <body x="0" y="-1" rotation="0" scale="0.5"/>
+      <body x="0" y="0" rotation="0"/>
+      <head x="0" y="0" rotation="6.21" scale="0.5"/>
+      <head x="0" y="0" rotation="0"/>
+      <legR2 x="0" y="0" rotation="-28"/>
+      <legR2 x="0" y="0" rotation="7.74"/>
+      <footR2 x="2.64" y="0" rotation="28"/>
+      <footR2 x="3.22" y="-1.85" rotation="-7.74"/>
+      <legR1 x="0" y="0" rotation="15"/>
+      <legR1 x="0" y="0" rotation="-30"/>
+      <footR1 x="3.38" y="0" rotation="-9.02"/>
+      <footR1 x="2.31" y="0" rotation="15"/>
+      <armR x="0" y="0" rotation="30" delay="0.1"/>
+      <armR x="0" y="0" rotation="38.23"/>
+      <armRM x="-2.87" y="0" rotation="-126.31"/>
+      <armRM x="-1.79" y="1.03" rotation="-72.92"/>
+      <handR x="-1.13" y="0" rotation="156.66"/>
+      <handR x="0" y="0" rotation="49.69"/>
+    </animation>
+  </skeleton>
+  <skeleton name="enemy2">
+    <bone name="body" x="0" y="0" z="6"/>
+    <bone name="neck" parent="body" x="3" y="-7" z="4"/>
+    <bone name="headBig" parent="neck" x="-1.3" y="-48.2" z="5"/>
+    <bone name="headSmall" parent="body" x="-1.3" y="-6.4" z="3"/>
+    <bone name="armR" parent="body" x="-7.55" y="-7" z="2"/>
+    <bone name="armL" parent="body" x="8.3" y="-7" z="1"/>
+    <bone name="leg" parent="body" x="0" y="11" z="0"/>
+    <animation name="stand" frame="2">
+      <leg x="0" y="0" rotation="0" scaleX="0.8" scaleY="0.8" frame="2"/>
+      <armL x="0" y="0" rotation="21.45" delay="0.1"/>
+      <armL x="0" y="0" rotation="0"/>
+      <armR x="0" y="0" rotation="-23.94"/>
+      <armR x="0" y="0" rotation="0"/>
+      <headSmall x="0" y="0" rotation="-4.25" delay="0.2"/>
+      <headSmall x="0" y="0" rotation="0"/>
+      <neck x="0" y="0" rotation="10.44"/>
+      <neck x="0" y="0" rotation="0"/>
+      <headBig x="0" y="0" rotation="4.56" delay="0.3"/>
+      <headBig x="0" y="0" rotation="0"/>
+      <body x="0" y="0" rotation="0" frame="2"/>
+    </animation>
+    <animation name="run" frame="2">
+      <leg x="0" y="0" rotation="7.74" scaleX="0.8" scaleY="0.8"/>
+      <leg x="0" y="0" rotation="-9.49" scaleX="0.8" scaleY="0.8"/>
+      <armL x="1.86" y="1.32" rotation="52.74"/>
+      <armL x="0" y="0" rotation="-47.72"/>
+      <armR x="0" y="1.03" rotation="10.51" delay="0.9"/>
+      <armR x="10.29" y="2.49" rotation="-69.42"/>
+      <headSmall x="0" y="0" rotation="-7.9" delay="0.2"/>
+      <headSmall x="-1.04" y="0" rotation="-19.46"/>
+      <neck x="0" y="0" rotation="42.21"/>
+      <neck x="-1.2" y="0" rotation="-17.43"/>
+      <headBig x="0" y="-1.44" rotation="-37.22" delay="0.1"/>
+      <headBig x="0" y="0" rotation="32.66"/>
+      <body x="0" y="0" rotation="-7.74"/>
+      <body x="0" y="0" rotation="9.49"/>
+    </animation>
+  </skeleton>
+</root>

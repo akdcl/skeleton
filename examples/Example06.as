@@ -169,7 +169,7 @@ class ArmatureExample extends Armature {
 						if (Math.random() > 0.90) {
 							speedX = 0;
 							speedY = 0;
-							animation.playTo("stand", 4, 20, 1, 2);
+							animation.playTo("stand", 4, 20, true, 2);
 						}
 						break;
 					case "stand":
