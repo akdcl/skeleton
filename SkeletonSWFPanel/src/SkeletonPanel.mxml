@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" xmlns:local="*"
+		  creationComplete="onCreationCompleteHandler()">
+	<fx:Declarations>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import akdcl.skeleton.utils.ConstValues;
+			
+			import mx.events.DragEvent;
+			import mx.events.ListEvent;
+			
+			import spark.events.GridSelectionEvent;
+			
+			[Bindable]
+			private var flaData:FLAData;
+			
+			private function onCreationCompleteHandler():void{
+				flaData = FLAData.instance;
+				
+				armatureList.dataProvider = flaData.armaturesMC;
+				movementList.dataProvider = flaData.movementsMC;
+				textureList.dataProvider = flaData.texturesMC;
+				
+				armatureList.addEventListener(GridSelectionEvent.SELECTION_CHANGE, onArmatureChangeHandler);
+				
+				movementList.addEventListener(GridSelectionEvent.SELECTION_CHANGE, onMovementChangeHandler);
+				
+				//textureList.addEventListener(GridSelectionEvent.SELECTION_CHANGE, onTextureChangeHandler);
+				
+				boneTree.addEventListener(ListEvent.CHANGE, onMovementBoneChangeHandler);
+				boneTree.addEventListener(DragEvent.DRAG_COMPLETE, onBoneDragCompleteHandler);
+				
+				flaData.addEventListener(FLAData.SOURCE_UPDATE, onFLADataHandler);
+				flaData.addEventListener(FLAData.ARMATURE_UPDATE, onFLADataHandler);
+				flaData.addEventListener(FLAData.MOVEMENT_UPDATE, onFLADataHandler);
+				flaData.addEventListener(FLAData.BONE_UPDATE, onFLADataHandler);
+				
+			}
+			
+			private function onFLADataHandler(_e:Event):void{
+				switch(_e.type){
+					case FLAData.SOURCE_UPDATE:
+						armatureList.selectedIndex = 0;
+						flaData.updateArmature(armatureList.selectedItem as XML);
+						break;
+					case FLAData.ARMATURE_UPDATE:
+						boneTree.dataProvider = flaData.bonesMC;
+						updateTexture();
+						movementList.selectedIndex = 0;
+						flaData.updateMovement(movementList.selectedItem as XML);
+						break;
+					case FLAData.MOVEMENT_UPDATE:
+						var _durationTo:int = flaData.durationTo;
+						var _durationTween:int = flaData.durationTween;
+						if(_durationTo < 0){
+							numDurationTo.value = 0;
+							numDurationTo.enabled = false;
+							sliderDurationTo.value = 0;
+							sliderDurationTo.enabled = false;
+						}else{
+							numDurationTo.value = _durationTo;
+							numDurationTo.enabled = true;
+							sliderDurationTo.value = _durationTo;
+							sliderDurationTo.enabled = true;
+						}
+						if(_durationTween < 0){
+							numDurationTween.value = 0;
+							numDurationTween.enabled = false;
+							sliderDurationTween.value = 0;
+							sliderDurationTween.enabled = false;
+							checkLoop.selected = false;
+							checkLoop.enabled = false;
+							sliderTween.value = 0;
+							sliderTween.enabled = false;
+							sliderScale.enabled = false;
+							sliderDelay.enabled = false;
+						}else{
+							numDurationTween.value = _durationTween;
+							numDurationTween.enabled = true;
+							sliderDurationTween.value = _durationTween;
+							sliderDurationTween.enabled = true;
+							checkLoop.selected = flaData.loop;
+							checkLoop.enabled = true;
+							sliderTween.value = flaData.tweenEasing;
+							sliderTween.enabled = true;
+							sliderScale.enabled = true;
+							sliderDelay.enabled = true;
+						}
+						
+						boneTree.selectedIndex = 0;
+						flaData.updateMovementBone(boneTree.selectedItem as XML);
+						break;
+					case FLAData.BONE_UPDATE:
+						var _boneScale:Number = flaData.boneScale;
+						var _boneDelay:Number = flaData.boneDelay;
+						sliderScale.value = _boneScale;
+						sliderDelay.value = _boneDelay;
+						break;
+				}
+			}
+			
+			private function updateTexture():void{
+				armatureContainer.addChild(flaData.container);
+				armatureContainerGroup.width = flaData.container.width;
+				armatureContainerGroup.height = flaData.container.height;
+			}
+			
+			private function onArmatureChangeHandler(_e:Event):void{
+				flaData.updateArmature(armatureList.selectedItem as XML);
+			}
+			
+			private function onMovementChangeHandler(_e:Event):void{
+				flaData.updateMovement(movementList.selectedItem as XML);
+			}
+			
+			private function onMovementBoneChangeHandler(_e:Event):void{
+				flaData.updateMovementBone(boneTree.selectedItem as XML);
+			}
+			
+			private function onBoneDragCompleteHandler(_e:DragEvent):void{
+				flaData.updateBoneParent(boneTree.lastMoveNode);
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+	</fx:Declarations>
+	<s:HGroup width="100%" height="100%" gap="0">
+		<s:DataGrid id="armatureList" maxWidth="200" width="100%" height="100%">
+			<s:columns>
+				<s:ArrayList>
+					<s:GridColumn dataField="{FLAData.AT_NAME}" headerText="Armature"/>
+				</s:ArrayList>
+			</s:columns>
+		</s:DataGrid>
+		<s:DataGrid id="movementList" maxWidth="150" width="100%" height="100%" sortableColumns="false">
+			<s:columns>
+				<s:ArrayList>
+					<s:GridColumn dataField="{FLAData.AT_NAME}" headerText="Movement"/>
+				</s:ArrayList>
+			</s:columns>
+		</s:DataGrid>
+		<s:Group width="100%" height="100%">
+			<s:Label x="10" y="2" height="24" fontWeight="bold" text="Bone" verticalAlign="middle"/>
+			<local:DragTree id="boneTree" y="25" width="100%" height="100%" labelField="{FLAData.AT_NAME}"
+							dragEnabled="{!flaData.isSWFSource}" 
+							dropEnabled="{!flaData.isSWFSource}" 
+							/>
+		</s:Group>
+		<s:DataGrid id="textureList" maxWidth="350" width="100%" height="100%">
+			<s:columns>
+				<s:ArrayList>
+					<s:GridColumn dataField="{FLAData.AT_NAME}" headerText="Texture List"/>
+				</s:ArrayList>
+			</s:columns>
+		</s:DataGrid>
+	</s:HGroup>
+	<s:HGroup width="100%" height="300" gap="0">
+		<s:Group width="140" height="100%">
+			<s:Label x="10" y="10" width="70" height="24" text="过渡时间" verticalAlign="middle"/>
+			<s:NumericStepper id="numDurationTo" x="75" y="10" width="55" height="24" textAlign="right" 
+							  minimum="0" maximum="300" snapInterval="1" value="@{flaData.durationTo}"/>
+			<s:HSlider id="sliderDurationTo" x="10" y="40" width="120" 
+					   minimum="0" maximum="300" snapInterval="5" value="@{numDurationTo.value}"/>
+			<s:Label x="10" y="60" width="70" height="24" text="动画时间" verticalAlign="middle"/>
+			<s:NumericStepper id="numDurationTween" x="75" y="60" width="55" height="24" textAlign="right" 
+							  minimum="0" maximum="1000" snapInterval="1" value="@{flaData.durationTween}"/>
+			<s:HSlider id="sliderDurationTween" x="10" y="90" width="120"
+					   minimum="0" maximum="1000" snapInterval="5" value="@{numDurationTween.value}"/>
+			<s:Label x="10" y="110" width="70" height="24" text="动画循环" verticalAlign="middle"/>
+			<s:CheckBox id="checkLoop" x="75" y="110" height="24"
+						selected="@{flaData.loop}"/>
+			<s:Label x="10" y="140" width="120" height="24" text="关键帧缓动" verticalAlign="middle"/>
+			<s:HSlider id="sliderTween" x="10" y="170" width="120"
+					   minimum="-1" maximum="2" snapInterval="0.05" value="@{flaData.tweenEasing}"/>
+			<s:Label x="10" y="200" width="120" height="24" text="Bone 动画缩放" verticalAlign="middle"/>
+			<s:HSlider id="sliderScale" x="10" y="230" width="120"
+					   minimum="0" maximum="2" snapInterval="0.05" value="@{flaData.boneScale}"/>
+			<s:Label x="10" y="250" width="120" height="24" text="Bone 动画延时" verticalAlign="middle"/>
+			<s:HSlider id="sliderDelay" x="10" y="280" width="120"
+					   minimum="-1" maximum="1" snapInterval="0.05" value="@{flaData.boneDelay}"/>
+		</s:Group>
+		<s:Scroller width="100%" height="100%">
+			<s:Group>
+				<s:Group id="armatureContainerGroup">
+					<mx:UIComponent id="armatureContainer"/>
+				</s:Group>
+			</s:Group>
+		</s:Scroller>
+		<s:Group width="200" height="100%">
+			<s:Button x="10" y="10" width="60" height="24" label="导入" click="{flaData.importData()}"
+					  />
+			<s:ComboBox x="80" y="10" width="110" height="24" textAlign="right"
+						dataProvider="{flaData.dataImportAC}"
+						selectedIndex="@{flaData.dataImportID}"
+						/>
+			<s:Button x="10" y="40" width="60" height="24" label="导出" click="{flaData.exportData()}"/>
+			<s:ComboBox x="80" y="40" width="110" height="24" textAlign="right"
+						dataProvider="{flaData.dataExportAC}"
+						selectedIndex="@{flaData.dataExportID}"
+						/>
+			<s:Label x="10" y="100" width="70" height="24" text="贴图排序" verticalAlign="middle"/>
+			<s:ComboBox x="80" y="100" width="110" height="24" textAlign="right" 
+						dataProvider="{flaData.textureSortAC}"
+						selectedIndex="@{flaData.textureSortID}"
+						enabled="{!flaData.isSWFSource}"
+						/>
+			<s:Label x="10" y="130" width="70" height="24" text="贴图宽度" verticalAlign="middle"/>
+			<s:ComboBox x="80" y="130" width="110" height="24" textAlign="right"
+						change="{flaData.updateTexture()}"
+						dataProvider="{flaData.textureMaxWidthAC}"
+						enabled="{flaData.textureSortID == 0 &amp;&amp; !flaData.isSWFSource}"
+						selectedIndex="@{flaData.textureMaxWidthID}"
+						/>
+			<s:Label x="10" y="160" width="70" height="24" text="贴图间距" verticalAlign="middle"/>
+			<s:NumericStepper x="80" y="160" width="110" height="24" textAlign="right"  maximum="100" minimum="0"
+							  change="{flaData.updateTexture()}"
+							  enabled="{flaData.textureSortID == 0 &amp;&amp; !flaData.isSWFSource}"
+							  value="@{flaData.textureInterval}"
+							  />
+		</s:Group>
+	</s:HGroup>
+</s:VGroup>
