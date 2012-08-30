@@ -98,7 +98,7 @@ var MOVIE_CLIP = "movie clip";
 var GRAPHIC = "graphic";
 var STRING = "string";
 var LABEL_TYPE_NAME = "name";
-var BLANK_CHAR = " ";
+var DELIM_CHAR = "|";
 var EVENT_PREFIX = "@";
 var MOVEMENT_PREFIX = "#";
 var NO_EASING = "^";
@@ -153,6 +153,14 @@ function generateArmature(_itemName){
 	var _connection = getArmatureConnection(_item);
 	var _armatureConnectionXML = _connection?XML(_connection):_armatureXML.copy();
 	
+	_armaturesXML.appendChild(_armatureXML);
+	//只有1个 movement 且movement.duration只有1，则定义没有动画的骨骼
+	if(_mainLayer.frameCount > 1){
+		_animationsXML.appendChild(_animationXML);
+	}else{
+		var _noAnimation = true;
+	}
+	
 	var _mainLayer = _layersFiltered.shift();
 	var _keyFrames = filterKeyFrames(_mainLayer.frames);
 	var _length = _keyFrames.length;
@@ -183,23 +191,15 @@ function generateArmature(_itemName){
 		if(_mainFrame && _isEndFrame){
 			//结束前帧
 			//checkTime(_armatureName);
-			generateMovement(_item, _mainFrame, _layersFiltered, _armatureXML, _animationXML, _textureAtlasXML, _armatureConnectionXML);
+			generateMovement(_item, _mainFrame, _layersFiltered, _noAnimation, _armatureXML, _animationXML, _textureAtlasXML, _armatureConnectionXML);
 		}
-	}
-	
-	_armaturesXML.appendChild(_armatureXML);
-	//只有1个 movement 且movement.duration只有1，则定义没有动画的骨骼，把部分属性转移到_armatureXML.bone中
-	if(_animationXML[MOVEMENT].length() != 1 || Number(_animationXML[MOVEMENT][0][AT + A_DURATION]) != 1){
-		_animationsXML.appendChild(_animationXML);
-	}else{
-		
 	}
 	
 	setArmatureConnection(_item, _armatureXML.toXMLString());
 	return _xml;
 }
 
-function generateMovement(_item, _mainFrame, _layers, _armatureXML, _animationXML, _textureAtlasXML, _armatureConnectionXML){
+function generateMovement(_item, _mainFrame, _layers, _noAnimation, _armatureXML, _animationXML, _textureAtlasXML, _armatureConnectionXML){
 	var _start = _mainFrame.frame.startFrame;
 	var _duration = _mainFrame.duration;
 	var _movementXML = createMovementXML(_item, _mainFrame.frame.name, _duration);
@@ -285,7 +285,7 @@ function generateMovement(_item, _mainFrame, _layers, _armatureXML, _animationXM
 			}
 			
 			_movementBoneXML = createMovementBone(_item, _movementXML, _boneName);
-			_frameXML = generateFrame(_layers, Math.max(_frame.startFrame, _start), _z, _symbol, _boneName, _boneType, _armatureXML, _armatureConnectionXML);
+			_frameXML = generateFrame(_layers, Math.max(_frame.startFrame, _start), _z, _symbol, _boneName, _boneType, _noAnimation, _armatureXML, _armatureConnectionXML);
 			
 			//补间
 			if(isNoEasingFrame(_frame)){
@@ -396,7 +396,7 @@ function generateMovement(_item, _mainFrame, _layers, _armatureXML, _animationXM
 	_animationXML.appendChild(_movementXML);
 }
 
-function generateFrame(_layers, _start, _z,_bone, _boneName, _boneType, _armatureXML, _armatureConnectionXML){
+function generateFrame(_layers, _start, _z, _bone, _boneName, _boneType, _noAnimation, _armatureXML, _armatureConnectionXML){
 	var _frameXML = <{FRAME}/>;
 	//寻找骨骼配置，读取父骨骼关系
 	var _boneXML = _armatureXML[BONE].(@name == _boneName)[0];
@@ -455,12 +455,14 @@ function generateFrame(_layers, _start, _z,_bone, _boneName, _boneType, _armatur
 	if(_isArmature){
 		_frameXML[AT + A_IS_ARMATURE] = 1;
 	}
-	/*if(!_boneXML[AT + A_IMAGE][0]){
-		_boneXML[AT + A_IMAGE] = _imageName;
-		if(_isArmature){
-			_boneXML[AT + A_IS_ARMATURE] = 1;
+	if(_noAnimation){
+		if(!_boneXML[AT + A_IMAGE][0]){
+			_boneXML[AT + A_IMAGE] = _imageName;
+			if(_isArmature){
+				_boneXML[AT + A_IS_ARMATURE] = 1;
+			}
 		}
-	}*/
+	}
 	return _frameXML;
 }
 
@@ -629,7 +631,7 @@ function isNoEasingFrame(_frame){
 function isSpecialFrame(_frame, _framePrefix, _returnName){
 	var _b = _frame.labelType == LABEL_TYPE_NAME && _frame.name.indexOf(_framePrefix) >= 0 && _frame.name.length > 1;
 	if(_b && _returnName){
-		var _arr = _frame.name.split(BLANK_CHAR);
+		var _arr = _frame.name.split(DELIM_CHAR);
 		for each(var _str in _arr){
 			if(_str.indexOf(_framePrefix) == 0){
 				return _str.substr(1);
@@ -719,8 +721,8 @@ function formatName(_obj){
 	var _name = _obj.name;
 	if(!_name){
 		_obj.name = _name = "unnamed" + Math.round((Math.random()*10000));
-	}else if(_name.indexOf(BLANK_CHAR) >= 0){
-		_obj.name = _name = replaceString(_name, BLANK_CHAR, "");
+	}else if(_name.indexOf(DELIM_CHAR) >= 0){
+		_obj.name = _name = replaceString(_name, DELIM_CHAR, "");
 	}
 	return _name;
 }

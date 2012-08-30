@@ -10,15 +10,15 @@
 	import akdcl.skeleton.factorys.BaseFactory;
 	
     [SWF(width="800", height="600", frameRate="30", backgroundColor="#999999")]
-	public class Example_Zombie_1_normal extends Sprite {
-		[Embed(source = "./resources/Zombie_1.swf", mimeType = "application/octet-stream")]
+	public class Example_Zombie_normal extends Sprite {
+		[Embed(source = "./resources/Zombie.swf", mimeType = "application/octet-stream")]
 		private static const ResourcesData:Class;
 		
 		private var allArmatureNameList:Array;
 		
 		private var armatures:Array;
 		
-		public function Example_Zombie_1_normal() {
+		public function Example_Zombie_normal() {
 			BaseFactory.lastInstance.skeletonData = generateSkeletonData(new ResourcesData());
 			allArmatureNameList = BaseFactory.lastInstance.skeletonData.getSearchList();
 			armatures = [];
