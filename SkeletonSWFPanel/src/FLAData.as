@@ -91,7 +91,7 @@ package{
 		public var isSWFSource:Boolean;
 		
 		public var dataImportID:int = 0;
-		public var dataImportAC:ArrayCollection = new ArrayCollection(["All Items", "Selected Items", "Exported Data"]);
+		public var dataImportAC:ArrayCollection = new ArrayCollection(["全部库项目", "选中的库项目", "导出的SWF/PNG"]);
 		
 		public var dataExportID:int = 0;
 		public var dataExportAC:ArrayCollection = new ArrayCollection(["PNG", "SWF", "JSON"]);
@@ -150,22 +150,22 @@ package{
 			}
 		}
 		
-		public function get boneScale():Number{
-			return movementBoneXML?Number(movementBoneXML.attribute(ConstValues.A_MOVEMENT_SCALE)):1;
+		public function get boneScale():int{
+			return (movementBoneXML?Number(movementBoneXML.attribute(ConstValues.A_MOVEMENT_SCALE)):1) * 100;
 		}
-		public function set boneScale(_value:Number):void{
+		public function set boneScale(_value:int):void{
 			if(movementBoneXML){
-				movementBoneXML[ConstValues.AT + ConstValues.A_MOVEMENT_SCALE] = _value;
+				movementBoneXML[ConstValues.AT + ConstValues.A_MOVEMENT_SCALE] = _value * 0.01;
 				changeMovementBone();
 			}
 		}
 		
-		public function get boneDelay():Number{
-			return movementBoneXML?Number(movementBoneXML.attribute(ConstValues.A_MOVEMENT_DELAY)):0;
+		public function get boneDelay():int{
+			return (movementBoneXML?Number(movementBoneXML.attribute(ConstValues.A_MOVEMENT_DELAY)):0) * 100;
 		}
-		public function set boneDelay(_value:Number):void{
+		public function set boneDelay(_value:int):void{
 			if(movementBoneXML){
-				movementBoneXML[ConstValues.AT + ConstValues.A_MOVEMENT_DELAY] = _value;
+				movementBoneXML[ConstValues.AT + ConstValues.A_MOVEMENT_DELAY] = _value * 0.01;
 				changeMovementBone();
 			}
 		}
@@ -180,9 +180,11 @@ package{
 			fileREF = new FileReference();
 			
 			urlLoader = new URLLoader();
-			urlLoader.addEventListener(Event.COMPLETE, onJSFLLoadedHandler);
-			urlLoader.addEventListener(IOErrorEvent.IO_ERROR, onJSFLLoadedHandler);
-			urlLoader.load(new URLRequest(JSFL.JSFL_URL));
+			if(JSFL.isAvailable){
+				urlLoader.addEventListener(Event.COMPLETE, onJSFLLoadedHandler);
+				urlLoader.addEventListener(IOErrorEvent.IO_ERROR, onJSFLLoadedHandler);
+				urlLoader.load(new URLRequest(JSFL.JSFL_URL));
+			}
 			
 			container = new Sprite();
 			shape = new Shape();
@@ -257,11 +259,14 @@ package{
 					break;
 				case Event.COMPLETE:
 					fileREF.removeEventListener(Event.COMPLETE, onFileLoadHaneler);
-					isSWFSource = true;
-					var _byteArray:ByteArray = fileREF.data;
-					updateArmatures(_byteArray ,extractXML(_byteArray));
+					setData(fileREF.data);
 					break;
 			}
+		}
+		
+		public function setData(_data:ByteArray):void{
+			isSWFSource = true;
+			updateArmatures(_data ,extractXML(_data));
 		}
 		
 		public function exportData():void{
@@ -479,8 +484,8 @@ package{
 			
 			_movementBoneData.scale = Number(movementBoneXML.attribute(ConstValues.A_MOVEMENT_SCALE));
 			_movementBoneData.delay = Number(movementBoneXML.attribute(ConstValues.A_MOVEMENT_DELAY));
-			if(_movementBoneData.delay < 0){
-				_movementBoneData.delay += 1;
+			if(_movementBoneData.delay > 0){
+				_movementBoneData.delay -= 1;
 			}
 			
 			armature.animation.play(_movementName);

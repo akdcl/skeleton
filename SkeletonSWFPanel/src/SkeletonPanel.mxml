@@ -14,7 +14,7 @@
 			
 			import spark.events.GridSelectionEvent;
 			
-			[Bindable]
+			[Bindable] 
 			private var flaData:FLAData;
 			
 			private function onCreationCompleteHandler():void{
@@ -75,6 +75,8 @@
 							checkLoop.enabled = false;
 							sliderTween.value = 0;
 							sliderTween.enabled = false;
+							numScale.enabled = false;
+							numDelay.enabled = false;
 							sliderScale.enabled = false;
 							sliderDelay.enabled = false;
 						}else{
@@ -86,6 +88,8 @@
 							checkLoop.enabled = true;
 							sliderTween.value = flaData.tweenEasing;
 							sliderTween.enabled = true;
+							numScale.enabled = true;
+							numDelay.enabled = true;
 							sliderScale.enabled = true;
 							sliderDelay.enabled = true;
 						}
@@ -96,6 +100,8 @@
 					case FLAData.BONE_UPDATE:
 						var _boneScale:Number = flaData.boneScale;
 						var _boneDelay:Number = flaData.boneDelay;
+						numScale.value = _boneScale;
+						numDelay.value = _boneDelay;
 						sliderScale.value = _boneScale;
 						sliderDelay.value = _boneDelay;
 						break;
@@ -158,29 +164,32 @@
 		</s:DataGrid>
 	</s:HGroup>
 	<s:HGroup width="100%" height="300" gap="0">
-		<s:Group width="140" height="100%">
+		<s:Group width="170" height="100%">
 			<s:Label x="10" y="10" width="70" height="24" text="过渡时间" verticalAlign="middle"/>
-			<s:NumericStepper id="numDurationTo" x="75" y="10" width="55" height="24" textAlign="right" 
+			<s:NumericStepper id="numDurationTo" x="105" y="10" width="55" height="24" textAlign="right" 
 							  minimum="0" maximum="300" snapInterval="1" value="@{flaData.durationTo}"/>
-			<s:HSlider id="sliderDurationTo" x="10" y="40" width="120" 
-					   minimum="0" maximum="300" snapInterval="5" value="@{numDurationTo.value}"/>
+			<s:HSlider id="sliderDurationTo" x="10" y="40" width="150" 
+					   minimum="0" maximum="300" snapInterval="1" value="@{flaData.durationTo}"/>
 			<s:Label x="10" y="60" width="70" height="24" text="动画时间" verticalAlign="middle"/>
-			<s:NumericStepper id="numDurationTween" x="75" y="60" width="55" height="24" textAlign="right" 
+			<s:NumericStepper id="numDurationTween" x="105" y="60" width="55" height="24" textAlign="right" 
 							  minimum="0" maximum="1000" snapInterval="1" value="@{flaData.durationTween}"/>
-			<s:HSlider id="sliderDurationTween" x="10" y="90" width="120"
-					   minimum="0" maximum="1000" snapInterval="5" value="@{numDurationTween.value}"/>
-			<s:Label x="10" y="110" width="70" height="24" text="动画循环" verticalAlign="middle"/>
-			<s:CheckBox id="checkLoop" x="75" y="110" height="24"
+			<s:HSlider id="sliderDurationTween" x="10" y="90" width="150"
+					   minimum="0" maximum="1000" snapInterval="1" value="@{flaData.durationTween}"/>
+			<s:CheckBox id="checkLoop" x="90" y="108" width="70" height="24" label="动画循环"
 						selected="@{flaData.loop}"/>
-			<s:Label x="10" y="140" width="120" height="24" text="关键帧缓动" verticalAlign="middle"/>
-			<s:HSlider id="sliderTween" x="10" y="170" width="120"
+			<s:Label x="10" y="110" width="70" height="24" text="关键帧缓动" verticalAlign="middle"/>
+			<s:HSlider id="sliderTween" x="10" y="140" width="150"
 					   minimum="-1" maximum="2" snapInterval="0.05" value="@{flaData.tweenEasing}"/>
-			<s:Label x="10" y="200" width="120" height="24" text="Bone 动画缩放" verticalAlign="middle"/>
-			<s:HSlider id="sliderScale" x="10" y="230" width="120"
-					   minimum="0" maximum="2" snapInterval="0.05" value="@{flaData.boneScale}"/>
-			<s:Label x="10" y="250" width="120" height="24" text="Bone 动画延时" verticalAlign="middle"/>
-			<s:HSlider id="sliderDelay" x="10" y="280" width="120"
-					   minimum="-1" maximum="1" snapInterval="0.05" value="@{flaData.boneDelay}"/>
+			<s:Label x="10" y="180" width="100" height="24" text="Bone 动画缩放" verticalAlign="middle"/>
+			<s:NumericStepper id="numScale" x="105" y="180" width="55" height="24"
+							  minimum="0" maximum="400" snapInterval="1" textAlign="right" value="@{flaData.boneScale}"/>
+			<s:HSlider id="sliderScale" x="10" y="210" width="150"
+					   minimum="0" maximum="400" snapInterval="5" value="@{flaData.boneScale}"/>
+			<s:Label x="10" y="230" width="100" height="24" text="Bone 动画延时" verticalAlign="middle"/>
+			<s:NumericStepper id="numDelay" x="105" y="230" width="55" height="24" textAlign="right" 
+							  minimum="-100" maximum="100" snapInterval="1" value="@{flaData.boneDelay}"/>
+			<s:HSlider id="sliderDelay" x="10" y="260" width="150"
+					   minimum="-100" maximum="100" snapInterval="5" value="@{flaData.boneDelay}"/>
 		</s:Group>
 		<s:Scroller width="100%" height="100%">
 			<s:Group>

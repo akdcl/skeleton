@@ -8,11 +8,11 @@
 	import starling.core.Starling;
 	
     [SWF(width="800", height="600", frameRate="30", backgroundColor="#999999")]
-	public class Example_Zombie_starling extends Sprite {
-		[Embed(source = "./resources/Zombie.swf", mimeType = "application/octet-stream")]
+	public class Example_Plant_starling extends Sprite {
+		[Embed(source = "./resources/Plant.png", mimeType = "application/octet-stream")]
 		private static const ResourcesData:Class;
 		
-		public function Example_Zombie_starling() {
+		public function Example_Plant_starling() {
 			StarlingFactory.lastInstance.skeletonData = generateSkeletonData(new ResourcesData());
 			
 			setTimeout(starlingInit, 100);

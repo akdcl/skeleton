@@ -154,6 +154,7 @@ function generateArmature(_itemName){
 	var _armatureConnectionXML = _connection?XML(_connection):_armatureXML.copy();
 	
 	_armaturesXML.appendChild(_armatureXML);
+	var _mainLayer = _layersFiltered.shift();
 	//只有1个 movement 且movement.duration只有1，则定义没有动画的骨骼
 	if(_mainLayer.frameCount > 1){
 		_animationsXML.appendChild(_animationXML);
@@ -161,7 +162,6 @@ function generateArmature(_itemName){
 		var _noAnimation = true;
 	}
 	
-	var _mainLayer = _layersFiltered.shift();
 	var _keyFrames = filterKeyFrames(_mainLayer.frames);
 	var _length = _keyFrames.length;
 	var _nameDic = {};

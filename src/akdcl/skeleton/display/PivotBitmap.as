@@ -40,24 +40,12 @@ package akdcl.skeleton.display{
 		}
 		
 		public function update():void{
-			m.a=1;
-			m.b=0;
-			m.c=0;
-			m.d=1;
-			m.tx=-pivotX;
-			m.ty=-pivotY;
-			
-			m.scale(tran_scaleX,tran_scaleY);
-			
-			var rad:Number = tran_skewX;
-			skew_matrix.c=-Math.sin(rad);
-			skew_matrix.d=Math.cos(rad);
-			rad = tran_skewY;
-			skew_matrix.a=Math.cos(rad);
-			skew_matrix.b=Math.sin(rad);
-			m.concat(skew_matrix);
-			m.translate(tran_x,tran_y);
-			
+			m.a = tran_scaleX * Math.cos(tran_skewY)
+			m.b = tran_scaleX * Math.sin(tran_skewY)
+			m.c = -tran_scaleY * Math.sin(tran_skewX);
+			m.d = tran_scaleY * Math.cos(tran_skewX);
+			m.tx = tran_x - pivotX;
+			m.ty = tran_y - pivotY;
 			this.transform.matrix=m;
 		}
 	}

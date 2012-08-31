@@ -40,6 +40,7 @@ package akdcl.skeleton.animation {
 			movementBoneData = _movementBoneData as MovementBoneData;
 			//
 			totalDuration = 0;
+			betweenDuration = 0;
 			toIndex = 0;
 			node.skewY %= 360;
 			var _frameData:FrameData;
@@ -56,7 +57,7 @@ package akdcl.skeleton.animation {
 					loop = LIST_START;
 					duration = movementBoneData.duration - 1;
 				}
-				durationTween = _durationTween * movementBoneData.scale;
+				durationTween = (_durationTween + 2) * movementBoneData.scale;
 				if (_loop && movementBoneData.delay != 0) {
 					setBetween(node, tweenNodeTo(updateFrameData(1 -movementBoneData.delay), between));
 				}else {
@@ -105,13 +106,17 @@ package akdcl.skeleton.animation {
 							currentPrecent += currentFrame / totalFrames;
 						}
 						currentPrecent %= 1;
-						totalDuration = 0;
+						//totalDuration = 0;
+						//betweenDuration = 0;
+						//toIndex = 0;
 						break;
 					default:
 						//循环
 						loop += int(currentPrecent);
 						currentPrecent %= 1;
-						totalDuration = 0;
+						if(movementBoneData.length > 2){
+							totalDuration = 0;
+						}
 						break;
 				}
 			}else if (loop < -1) {
@@ -128,7 +133,7 @@ package akdcl.skeleton.animation {
 			}
 			if(currentKeyFrame){
 				//arrived
-				bone.factory.keyFrameRender(bone, currentKeyFrame);
+				bone.factory.boneKeyFrameRender(bone, currentKeyFrame);
 				currentKeyFrame = null;
 			}
 			if(isTweenKeyFrame){
@@ -157,8 +162,8 @@ package akdcl.skeleton.animation {
 		}
 		
 		private function updateFrameData(_currentPrecent:Number, _activeFrame:Boolean = false):Number {
-			var _length:int = movementBoneData.length;
 			var _played:Number = duration * _currentPrecent;
+			var _length:int = movementBoneData.length;
 			var _fromIndex:int;
 			var _from:FrameData;
 			var _to:FrameData;

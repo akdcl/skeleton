@@ -14,8 +14,8 @@ package akdcl.skeleton.objects {
 			super(_name);
 			scale = _scale > 0?_scale:1;
 			delay = (_delay || 0) % 1;
-			if (delay < 0) {
-				delay += 1;
+			if (delay > 0) {
+				delay -= 1;
 			}
 			length = 0;
 			duration = 0;

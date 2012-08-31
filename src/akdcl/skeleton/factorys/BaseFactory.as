@@ -179,29 +179,42 @@ package akdcl.skeleton.factorys {
 		}
 		
 		//处理hide,image,armautre,event,sound
-		public function keyFrameRender(_bone:Bone, _keyFrame:FrameData):void {
+		public function boneKeyFrameRender(_bone:Bone, _keyFrame:FrameData):void {
 			var _image:String = _bone.info.image;
 			var _newImage:String = _keyFrame.image;
-			
 			if (_keyFrame.hide) {
 				_bone.recycleDisplay();
-				return;
-			}
-			if (!_bone.cycleDisplay(_newImage)) {
-				if (_keyFrame.isArmature) {
-					var _armatureBone:Armature = buildArmature(_newImage);
-					if (_armatureBone) {
-						_bone.display = _armatureBone.display;
+			}else{
+				if (!_bone.cycleDisplay(_newImage)) {
+					if (_keyFrame.isArmature) {
+						var _armatureBone:Armature = buildArmature(_newImage);
+						if (_armatureBone) {
+							_bone.display = _armatureBone.display;
+						}
+					}else {
+						_bone.display = generateBoneDisplay(_bone.armature, _bone, _newImage);
 					}
-				}else {
-					_bone.display = generateBoneDisplay(_bone.armature, _bone, _newImage);
+					_bone.info.image = _newImage;
+					_bone.info.hide = false;
 				}
-				_bone.info.image = _newImage;
-				_bone.info.hide = false;
+				if(_keyFrame.z != _bone.info.z){
+					_bone.info.z = _keyFrame.z;
+					displayContainer(_bone.display, _bone.armature.display, _bone.info.z);
+				}
 			}
-			if(_keyFrame.z != _bone.info.z){
-				_bone.info.z = _keyFrame.z;
-				displayContainer(_bone.display, _bone.armature.display, _bone.info.z);
+			
+			if(_keyFrame.event && _bone.armature.boneEventCallback != null){
+				_bone.armature.boneEventCallback(_keyFrame.event);
+			}
+			
+			if(_keyFrame.sound && _bone.armature.soundEventCallback != null){
+				_bone.armature.boneEventCallback(_keyFrame.sound, _keyFrame.soundEffect);
+			}
+		}
+		
+		public function animationEventHandler(_armature:Armature, _event:String, _movementID:String):void{
+			if(_armature.armatureEventCallback != null){
+				_armature.armatureEventCallback(_event, _movementID);
 			}
 		}
 	}

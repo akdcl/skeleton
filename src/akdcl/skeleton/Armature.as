@@ -1,9 +1,7 @@
 package akdcl.skeleton {
-	import akdcl.skeleton.utils.skeletonNamespace;
-	
-	import akdcl.skeleton.factorys.BaseFactory;
-	
 	import akdcl.skeleton.animation.Animation;
+	import akdcl.skeleton.factorys.BaseFactory;
+	import akdcl.skeleton.utils.skeletonNamespace;
 	
 	/**
 	 * 
@@ -11,6 +9,9 @@ package akdcl.skeleton {
 	 */
 	public class Armature extends Bone {
 		public var animation:Animation;
+		public var armatureEventCallback:Function;
+		public var boneEventCallback:Function;
+		public var soundEventCallback:Function;
 		
 		skeletonNamespace var bones:Object;
 		
@@ -26,12 +27,17 @@ package akdcl.skeleton {
 		
 		override public function update():void{
 			super.update();
+			animation.update();
 		}
 		
 		override public function dispose():void{
 			super.dispose();
 			animation = null;
 			skeletonNamespace::bones = null;
+			
+			armatureEventCallback = null;
+			boneEventCallback = null;
+			soundEventCallback = null;
 		}
 			
 		

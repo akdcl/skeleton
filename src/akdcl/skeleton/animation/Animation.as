@@ -13,14 +13,13 @@ package akdcl.skeleton.animation{
 	 */
 	final public class Animation extends ProcessBase {
 		public var movementList:Array;
+		public var movementID:String;
 		
 		protected var updateDisplayFun:Function;
 		protected var containerFun:Function;
 		
 		private var animationData:AnimationData;
 		private var movementData:MovementData;
-		
-		private var movementID:String;
 		
 		private var armature:Armature;
 		private var bones:Object;
@@ -121,36 +120,28 @@ package akdcl.skeleton.animation{
 						}else {
 							totalFrames = durationTween;
 							totalDuration = 0;
-							/*if (onAnimation!=null) {
-								onAnimation(START, aniIDNow);
-							}*/
+							armature.factory.animationEventHandler(armature, "start", movementID);
 							break;
 						}
 					case LIST:
 					case SINGLE:
 						currentPrecent = 1;
 						isComplete = true;
-						/*if (onAnimation!=null) {
-							onAnimation(COMPLETE, aniIDNow);
-						}*/
+						armature.factory.animationEventHandler(armature, "complete", movementID);
 						break;
 					case LIST_LOOP_START:
 						loop = 0;
 						currentPrecent %= 1;
 						totalFrames = durationTween;
 						totalDuration = 0;
-						/*if (onAnimation!=null) {
-							onAnimation(START, aniIDNow);
-						}*/
+						armature.factory.animationEventHandler(armature, "start", movementID);
 						break;
 					default:
 						//继续循环
 						loop += int(currentPrecent);
 						currentPrecent %= 1;
 						totalDuration = 0;
-						/*if (onAnimation != null) {
-							onAnimation(LOOP_COMPLETE, aniIDNow);
-						}*/
+						armature.factory.animationEventHandler(armature, "loopComplete", movementID);
 						break;
 				}
 			}
@@ -161,7 +152,7 @@ package akdcl.skeleton.animation{
 			}
 		}
 		
-		private function updateFrameData(_currentPrecent:Number, _activeFrame:Boolean = false):void {
+		private function updateFrameData(_currentPrecent:Number):void {
 			/*var _length:int = movementData.length;
 			var _played:Number = duration * _currentPrecent;
 			var _fromIndex:int;
