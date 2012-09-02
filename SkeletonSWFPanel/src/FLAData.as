@@ -44,7 +44,7 @@ package{
 		public static const MOVEMENT_UPDATE:String = "movementUpdate";
 		public static const BONE_UPDATE:String = "boneUpdate";
 		
-		private static const FILE_FILTER_ARRAY:Array = [new FileFilter("骨骼资源", "*." + String(["swf", "png"]).replace(/\,/g, ";*."))];
+		private static const FILE_FILTER_ARRAY:Array = [new FileFilter("Exported data", "*." + String(["swf", "png"]).replace(/\,/g, ";*."))];
 		
 		private static var __instance:FLAData;
 		public static function get instance():FLAData{
@@ -91,7 +91,7 @@ package{
 		public var isSWFSource:Boolean;
 		
 		public var dataImportID:int = 0;
-		public var dataImportAC:ArrayCollection = new ArrayCollection(["全部库项目", "选中的库项目", "导出的SWF/PNG"]);
+		public var dataImportAC:ArrayCollection = new ArrayCollection(["All library items", "Seleted items", "Exported SWF/PNG"]);
 		
 		public var dataExportID:int = 0;
 		public var dataExportAC:ArrayCollection = new ArrayCollection(["PNG", "SWF", "JSON"]);
@@ -370,7 +370,7 @@ package{
 			if(!tempArr || tempArr.length == 0){
 				return;
 			}
-			alert = Alert.show("导入中，请稍后...");
+			alert = Alert.show("Waitting...");
 			flaXML = null;
 			container.addEventListener(Event.ENTER_FRAME, onGenerateFLAXMLHandler);
 		}

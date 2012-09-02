@@ -165,30 +165,30 @@
 	</s:HGroup>
 	<s:HGroup width="100%" height="300" gap="0">
 		<s:Group width="170" height="100%">
-			<s:Label x="10" y="10" width="70" height="24" text="过渡时间" verticalAlign="middle"/>
+			<s:Label x="10" y="10" width="100" height="24" text="Tween time" verticalAlign="middle"/>
 			<s:NumericStepper id="numDurationTo" x="105" y="10" width="55" height="24" textAlign="right" 
 							  minimum="0" maximum="300" snapInterval="1" value="@{flaData.durationTo}"/>
 			<s:HSlider id="sliderDurationTo" x="10" y="40" width="150" 
 					   minimum="0" maximum="300" snapInterval="1" value="@{flaData.durationTo}"/>
-			<s:Label x="10" y="60" width="70" height="24" text="动画时间" verticalAlign="middle"/>
+			<s:Label x="10" y="60" width="100" height="24" text="Animation time" verticalAlign="middle"/>
 			<s:NumericStepper id="numDurationTween" x="105" y="60" width="55" height="24" textAlign="right" 
 							  minimum="0" maximum="1000" snapInterval="1" value="@{flaData.durationTween}"/>
 			<s:HSlider id="sliderDurationTween" x="10" y="90" width="150"
 					   minimum="0" maximum="1000" snapInterval="1" value="@{flaData.durationTween}"/>
-			<s:CheckBox id="checkLoop" x="90" y="108" width="70" height="24" label="动画循环"
+			<s:CheckBox id="checkLoop" x="105" y="108" width="60" height="24" label="Loop"
 						selected="@{flaData.loop}"/>
-			<s:Label x="10" y="110" width="70" height="24" text="关键帧缓动" verticalAlign="middle"/>
-			<s:HSlider id="sliderTween" x="10" y="140" width="150"
+			<s:Label x="10" y="130" width="100" height="24" text="Keyframe easing" verticalAlign="middle"/>
+			<s:HSlider id="sliderTween" x="10" y="160" width="150"
 					   minimum="-1" maximum="2" snapInterval="0.05" value="@{flaData.tweenEasing}"/>
-			<s:Label x="10" y="180" width="100" height="24" text="Bone 动画缩放" verticalAlign="middle"/>
-			<s:NumericStepper id="numScale" x="105" y="180" width="55" height="24"
+			<s:Label x="10" y="200" width="100" height="24" text="Bone animation scale" verticalAlign="middle"/>
+			<s:NumericStepper id="numScale" x="105" y="200" width="55" height="24"
 							  minimum="0" maximum="400" snapInterval="1" textAlign="right" value="@{flaData.boneScale}"/>
-			<s:HSlider id="sliderScale" x="10" y="210" width="150"
+			<s:HSlider id="sliderScale" x="10" y="230" width="150"
 					   minimum="0" maximum="400" snapInterval="5" value="@{flaData.boneScale}"/>
-			<s:Label x="10" y="230" width="100" height="24" text="Bone 动画延时" verticalAlign="middle"/>
-			<s:NumericStepper id="numDelay" x="105" y="230" width="55" height="24" textAlign="right" 
+			<s:Label x="10" y="250" width="100" height="24" text="Bone Animation delay" verticalAlign="middle"/>
+			<s:NumericStepper id="numDelay" x="105" y="250" width="55" height="24" textAlign="right" 
 							  minimum="-100" maximum="100" snapInterval="1" value="@{flaData.boneDelay}"/>
-			<s:HSlider id="sliderDelay" x="10" y="260" width="150"
+			<s:HSlider id="sliderDelay" x="10" y="280" width="150"
 					   minimum="-100" maximum="100" snapInterval="5" value="@{flaData.boneDelay}"/>
 		</s:Group>
 		<s:Scroller width="100%" height="100%">
@@ -198,33 +198,33 @@
 				</s:Group>
 			</s:Group>
 		</s:Scroller>
-		<s:Group width="200" height="100%">
-			<s:Button x="10" y="10" width="60" height="24" label="导入" click="{flaData.importData()}"
+		<s:Group width="220" height="100%">
+			<s:Button x="10" y="10" width="70" height="24" label="Import" click="{flaData.importData()}"
 					  />
-			<s:ComboBox x="80" y="10" width="110" height="24" textAlign="right"
+			<s:ComboBox x="90" y="10" width="120" height="24" textAlign="right"
 						dataProvider="{flaData.dataImportAC}"
 						selectedIndex="@{flaData.dataImportID}"
 						/>
-			<s:Button x="10" y="40" width="60" height="24" label="导出" click="{flaData.exportData()}"/>
-			<s:ComboBox x="80" y="40" width="110" height="24" textAlign="right"
+			<s:Button x="10" y="40" width="70" height="24" label="Export" click="{flaData.exportData()}"/>
+			<s:ComboBox x="90" y="40" width="120" height="24" textAlign="right"
 						dataProvider="{flaData.dataExportAC}"
 						selectedIndex="@{flaData.dataExportID}"
 						/>
-			<s:Label x="10" y="100" width="70" height="24" text="贴图排序" verticalAlign="middle"/>
-			<s:ComboBox x="80" y="100" width="110" height="24" textAlign="right" 
+			<s:Label x="10" y="100" width="90" height="24" text="Texture sort" verticalAlign="middle"/>
+			<s:ComboBox x="100" y="100" width="110" height="24" textAlign="right" 
 						dataProvider="{flaData.textureSortAC}"
 						selectedIndex="@{flaData.textureSortID}"
 						enabled="{!flaData.isSWFSource}"
 						/>
-			<s:Label x="10" y="130" width="70" height="24" text="贴图宽度" verticalAlign="middle"/>
-			<s:ComboBox x="80" y="130" width="110" height="24" textAlign="right"
+			<s:Label x="10" y="130" width="90" height="24" text="Texture width" verticalAlign="middle"/>
+			<s:ComboBox x="100" y="130" width="110" height="24" textAlign="right"
 						change="{flaData.updateTexture()}"
 						dataProvider="{flaData.textureMaxWidthAC}"
 						enabled="{flaData.textureSortID == 0 &amp;&amp; !flaData.isSWFSource}"
 						selectedIndex="@{flaData.textureMaxWidthID}"
 						/>
-			<s:Label x="10" y="160" width="70" height="24" text="贴图间距" verticalAlign="middle"/>
-			<s:NumericStepper x="80" y="160" width="110" height="24" textAlign="right"  maximum="100" minimum="0"
+			<s:Label x="10" y="160" width="90" height="24" text="Texture height" verticalAlign="middle"/>
+			<s:NumericStepper x="100" y="160" width="110" height="24" textAlign="right"  maximum="100" minimum="0"
 							  change="{flaData.updateTexture()}"
 							  enabled="{flaData.textureSortID == 0 &amp;&amp; !flaData.isSWFSource}"
 							  value="@{flaData.textureInterval}"
