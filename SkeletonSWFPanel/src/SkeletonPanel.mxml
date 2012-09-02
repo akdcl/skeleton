@@ -211,20 +211,20 @@
 						selectedIndex="@{flaData.dataExportID}"
 						/>
 			<s:Label x="10" y="100" width="90" height="24" text="Texture sort" verticalAlign="middle"/>
-			<s:ComboBox x="100" y="100" width="110" height="24" textAlign="right" 
+			<s:ComboBox x="110" y="100" width="100" height="24" textAlign="right" 
 						dataProvider="{flaData.textureSortAC}"
 						selectedIndex="@{flaData.textureSortID}"
 						enabled="{!flaData.isSWFSource}"
 						/>
 			<s:Label x="10" y="130" width="90" height="24" text="Texture width" verticalAlign="middle"/>
-			<s:ComboBox x="100" y="130" width="110" height="24" textAlign="right"
+			<s:ComboBox x="110" y="130" width="100" height="24" textAlign="right"
 						change="{flaData.updateTexture()}"
 						dataProvider="{flaData.textureMaxWidthAC}"
 						enabled="{flaData.textureSortID == 0 &amp;&amp; !flaData.isSWFSource}"
 						selectedIndex="@{flaData.textureMaxWidthID}"
 						/>
-			<s:Label x="10" y="160" width="90" height="24" text="Texture height" verticalAlign="middle"/>
-			<s:NumericStepper x="100" y="160" width="110" height="24" textAlign="right"  maximum="100" minimum="0"
+			<s:Label x="10" y="160" width="90" height="24" text="Texture padding" verticalAlign="middle"/>
+			<s:NumericStepper x="110" y="160" width="100" height="24" textAlign="right"  maximum="100" minimum="0"
 							  change="{flaData.updateTexture()}"
 							  enabled="{flaData.textureSortID == 0 &amp;&amp; !flaData.isSWFSource}"
 							  value="@{flaData.textureInterval}"
