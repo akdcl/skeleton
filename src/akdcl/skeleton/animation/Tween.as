@@ -49,6 +49,7 @@ package akdcl.skeleton.animation {
 				nextKeyFrame = movementBoneData.getData(0);
 				setBetween(node, nextKeyFrame);
 				isTweenKeyFrame = true;
+				frameTweenEasing = 1;
 			}else if (movementBoneData.length > 1) {
 				if (_loop) {
 					loop = LIST_LOOP_START;
@@ -197,7 +198,7 @@ package akdcl.skeleton.animation {
 			}
 			_currentPrecent = 1 - (totalDuration - _played) / betweenDuration;
 			
-			//frameTweenEasing为NaN则不会补间，-1~0~1~2、线性、淡入、淡入淡出
+			//frameTweenEasing为NaN则不会补间，-1~0~1~2、淡出、线性、淡入、淡入淡出
 			var _tweenEasing:Number;
 			if (!isNaN(frameTweenEasing)) {
 				_tweenEasing = isNaN(tweenEasing)?frameTweenEasing:tweenEasing;

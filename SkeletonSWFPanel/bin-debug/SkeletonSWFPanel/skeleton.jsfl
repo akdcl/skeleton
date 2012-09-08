@@ -472,12 +472,19 @@ function createMovementXML(_armature, _movementName, _duration){
 		var _xml = _animationXML[MOVEMENT].(@name == _movementName)[0];
 	}
 	if(!_xml){
-		_xml = <{MOVEMENT} {A_NAME} = {_movementName} {A_DURATION} = {_duration}/>;
+		_xml = <{MOVEMENT} {A_NAME} = {_movementName}/>;
 		_xml[AT + A_DURATION_TO] = 6;
-		if(_duration > 1){
+	}
+	_xml[AT + A_DURATION] = _duration;
+	if(_duration > 1){
+		if(!_xml[AT + A_DURATION_TWEEN][0]){
 			_xml[AT + A_DURATION_TWEEN] = _duration > 2?_duration:10;
-			if(_duration == 2){
+		}
+		if(_duration == 2){
+			if(!_xml[AT + A_LOOP][0]){
 				_xml[AT + A_LOOP] = 1;
+			}
+			if(!_xml[AT + A_TWEEN_EASING][0]){
 				_xml[AT + A_TWEEN_EASING] = 2;
 			}
 		}

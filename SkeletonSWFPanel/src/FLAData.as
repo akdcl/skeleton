@@ -21,6 +21,7 @@ package{
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	import flash.events.IOErrorEvent;
+	import flash.events.MouseEvent;
 	import flash.net.FileFilter;
 	import flash.net.FileReference;
 	import flash.net.URLLoader;
@@ -76,6 +77,7 @@ package{
 		private var armature:Armature;
 		private var shape:Shape;
 		private var alert:Alert;
+		private var isDraged:Boolean;
 		
 		private var maxWidth:int;
 		private var maxHeight:int;
@@ -191,6 +193,8 @@ package{
 			shape.graphics.drawRect(0,0,100,100);
 			container.addChild(shape);
 			container.addEventListener(Event.ENTER_FRAME, onUpdateDisplayHandler);
+			container.addEventListener(MouseEvent.MOUSE_DOWN, onContainerMouseHandler);
+			container.addEventListener(MouseEvent.MOUSE_UP, onContainerMouseHandler);
 		}
 		
 		private function onUpdateDisplayHandler(_e:Event):void{
@@ -212,10 +216,28 @@ package{
 						_sW = shape.width = maxWidth * 1.2;
 						_sH = shape.height = maxHeight * 1.2;
 					}
-					_display.x = _sW * 0.6;
-					_display.y = _sH * 0.6;
+					if(!isDraged){
+						_display.x = _sW * 0.5;
+						_display.y = _sH * 0.5;
+					}
 				}
 				
+			}
+		}
+		
+		private function onContainerMouseHandler(_e:Event):void{
+			var _display:Object = armature?armature.display:null;
+			if(!_display){
+				return;
+			}
+			switch(_e.type){
+				case MouseEvent.MOUSE_DOWN:
+					isDraged = true;
+					_display.startDrag();
+					break;
+				case MouseEvent.MOUSE_UP:
+					_display.stopDrag();
+					break;
 			}
 		}
 		
@@ -431,6 +453,7 @@ package{
 		}
 		
 		private function updateArmatures(_byteArray:ByteArray, _xml:XML = null):void{
+			isDraged = false;
 			xml = _xml || xml;
 			armaturesXML = xml.elements(ConstValues.ARMATURES)[0];
 			animationsXML = xml.elements(ConstValues.ANIMATIONS)[0];
