@@ -204,11 +204,11 @@ package akdcl.skeleton.factorys {
 			}
 			
 			if(_keyFrame.event && _bone.armature.boneEventCallback != null){
-				_bone.armature.boneEventCallback(_keyFrame.event);
+				_bone.armature.boneEventCallback(_keyFrame.event, _bone.info.name);
 			}
 			
 			if(_keyFrame.sound && _bone.armature.soundEventCallback != null){
-				_bone.armature.boneEventCallback(_keyFrame.sound, _keyFrame.soundEffect);
+				_bone.armature.soundEventCallback(_keyFrame.sound, _keyFrame.soundEffect);
 			}
 		}
 		

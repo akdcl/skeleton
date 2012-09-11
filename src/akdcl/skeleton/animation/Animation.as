@@ -145,7 +145,6 @@ package akdcl.skeleton.animation{
 						break;
 				}
 			}
-			
 			if (loop >= LIST) {
 				//多关键帧动画过程
 				//updateFrameData(currentPrecent);

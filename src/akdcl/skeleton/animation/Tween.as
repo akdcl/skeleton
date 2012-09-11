@@ -58,7 +58,7 @@ package akdcl.skeleton.animation {
 					loop = LIST_START;
 					duration = movementBoneData.duration - 1;
 				}
-				durationTween = (_durationTween + 2) * movementBoneData.scale;
+				durationTween = _durationTween * movementBoneData.scale;
 				if (_loop && movementBoneData.delay != 0) {
 					setBetween(node, tweenNodeTo(updateFrameData(1 -movementBoneData.delay), between));
 				}else {
@@ -115,9 +115,11 @@ package akdcl.skeleton.animation {
 						//循环
 						loop += int(currentPrecent);
 						currentPrecent %= 1;
-						if(movementBoneData.length > 2){
-							totalDuration = 0;
-						}
+						
+						totalDuration = 0;
+						betweenDuration = 0;
+						toIndex = 0;
+						
 						break;
 				}
 			}else if (loop < -1) {
