@@ -58,7 +58,8 @@ package akdcl.skeleton {
 			
 			children = new Vector.<Bone>;
 			node = new Node();
-			
+			node.scaleX = 0;
+			node.scaleY = 0;
 			tween = new Tween(this);
 			tweenNode = tween.node;
 		}
@@ -142,8 +143,8 @@ package akdcl.skeleton {
 					info.y = _transformY;
 					info.skewX = _transformSkewX;
 					info.skewY = _transformSkewY;
-					info.scaleX = tweenNode.scaleX;
-					info.scaleY = tweenNode.scaleY;
+					info.scaleX = tweenNode.scaleX + node.scaleX;
+					info.scaleY = tweenNode.scaleY + node.scaleY;
 					if (__display) {
 						armature.factory.updateDisplay(__display, info);
 					}
