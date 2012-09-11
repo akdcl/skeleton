@@ -519,19 +519,6 @@ package{
 			}
 		}
 		
-		private function changeArmature(_armatureXML:XML):void{
-			if(armature && armature.display && container.contains(armature.display as DisplayObject)){
-				container.removeChild(armature.display as DisplayObject);
-			}
-			armature.dispose();
-			var _armatureName:String = armatureXML.attribute(ConstValues.A_NAME);
-			skeletonData.addData(generateArmatureData(_armatureXML));
-			armatures[_armatureName] = armature = BaseFactory.lastInstance.buildArmature(_armatureName);
-			if(armature.display){
-				container.addChild(armature.display as DisplayObject);
-			}
-		}
-		
 		public function updateArmature(_armatureXML:XML):void{
 			armatureXML = _armatureXML;
 			var _armatureName:String = armatureXML.attribute(ConstValues.A_NAME);
@@ -553,11 +540,16 @@ package{
 			if(!armature){
 				armatures[_armatureName] = armature = BaseFactory.lastInstance.buildArmature(_armatureName);
 			}
+			armature.armatureEventCallback = armatureEventCallback;
 			if(armature.display){
 				container.addChild(armature.display as DisplayObject);
 			}
 			
 			dispatchEvent(new Event(ARMATURE_UPDATE));
+		}
+		
+		private function armatureEventCallback(_eventType:String, _movementID:String):void{
+			//trace(_eventType, _movementID);
 		}
 		
 		public function updateMovement(_movementXML:XML):void{
